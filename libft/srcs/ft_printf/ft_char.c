@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_char.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2020/08/09 12:23:17 by hhuhtane          #+#    #+#             */
+/*   Updated: 2020/09/17 15:57:42 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ft_printf.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+void		convert_char(void *param)
 {
-	pid_t	child_pid;
+	t_all	*all;
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
-	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
-	}
+	all = (t_all*)param;
+	all->convert_str = ft_strnew(2);
+	all->convert_str[0] = all->arg_int;
+	all->convert_str[1] = '\0';
+	all->arg_len = 1;
+}
+
+void		get_char(t_all *all)
+{
+	all->arg_int = va_arg(all->args, int);
 }

@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_percent.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2020/08/09 12:10:03 by hhuhtane          #+#    #+#             */
+/*   Updated: 2020/08/09 12:21:24 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ft_printf.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+void		convert_percent(void *param)
 {
-	pid_t	child_pid;
+	t_all	*all;
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
-	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
-	}
+	all = (t_all*)param;
+}
+
+void		get_percent(t_all *all)
+{
+	all->convert_str = ft_strdup("%");
+	all->arg_len = 1;
 }

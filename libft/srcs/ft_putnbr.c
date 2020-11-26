@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hhuhtane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2019/10/17 14:58:03 by hhuhtane          #+#    #+#             */
+/*   Updated: 2019/10/30 16:51:21 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+void	ft_putnbr(int n)
 {
-	pid_t	child_pid;
-
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
+	if (n < 0)
 	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
+		ft_putchar('-');
+		if (n == -2147483648)
+		{
+			ft_putchar('2');
+			n += 2000000000;
+		}
+		n *= -1;
 	}
+	if (n > 9)
+	{
+		ft_putnbr(n / 10);
+	}
+	ft_putchar((n % 10) + '0');
 }

@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_arg_convert.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2020/07/30 17:42:56 by hhuhtane          #+#    #+#             */
+/*   Updated: 2020/08/11 15:13:59 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ft_printf.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+int			ft_arg_convert(t_all *all)
 {
-	pid_t	child_pid;
+	int		i;
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
+	i = 0;
+	while (i < FORMAT_ID_SIZE)
 	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
+		if (all->format_id & (1 << i))
+		{
+			all->convert_fun_ptr[i](all);
+			return (1);
+		}
+		i++;
 	}
+	return (0);
 }

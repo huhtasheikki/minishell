@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_str_to_lst.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2020/08/07 11:15:21 by hhuhtane          #+#    #+#             */
+/*   Updated: 2020/10/07 11:15:44 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ft_printf.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+void		ft_full_str_to_list(t_all *all)
 {
-	pid_t	child_pid;
+	t_list		*txt_list;
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
-	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
-	}
+	txt_list = ft_lstnew(all->full_str, all->combined_len);
+	ft_lstappend(&all->parsed_args, txt_list);
 }

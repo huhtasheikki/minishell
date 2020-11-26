@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_pow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2020/08/08 14:19:16 by hhuhtane          #+#    #+#             */
+/*   Updated: 2020/08/08 16:24:22 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+double		ft_pow(double x, double y)
 {
-	pid_t	child_pid;
+	double		ret;
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
+	ret = 1;
+	while (y > 0)
 	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
+		ret = ret * x;
+		y--;
 	}
+	return (ret);
 }

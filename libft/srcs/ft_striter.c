@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_striter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hhuhtane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2019/10/25 15:47:40 by hhuhtane          #+#    #+#             */
+/*   Updated: 2019/10/31 13:51:51 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+void	ft_striter(char *s, void (*f)(char *))
 {
-	pid_t	child_pid;
+	size_t		i;
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
+	i = 0;
+	while (s && f && *s)
 	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
+		f(s);
+		s++;
 	}
 }

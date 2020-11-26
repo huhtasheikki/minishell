@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hhuhtane <hhuhtane@student.hive.f...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2020/02/27 15:05:39 by hhuhtane          #+#    #+#             */
+/*   Updated: 2020/02/27 15:07:04 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int		run_execve(char *program, char **argv, char **envp)
+int		ft_abs(int a)
 {
-	pid_t	child_pid;
-
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
+	if (a < 0)
+		return (-a);
 	else
-	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
-	}
+		return (a);
 }

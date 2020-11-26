@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hhuhtane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2019/10/22 14:43:50 by hhuhtane          #+#    #+#             */
+/*   Updated: 2019/10/22 16:04:59 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+char	*ft_strcat(char *s1, const char *s2)
 {
-	pid_t	child_pid;
+	size_t		i1;
+	size_t		i2;
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
+	i1 = ft_strlen(s1);
+	i2 = 0;
+	while (s2[i2])
 	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
+		s1[i1] = s2[i2];
+		i1++;
+		i2++;
 	}
+	s1[i1] = '\0';
+	return (s1);
 }

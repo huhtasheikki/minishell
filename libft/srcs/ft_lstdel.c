@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2020/08/08 11:02:38 by hhuhtane          #+#    #+#             */
+/*   Updated: 2020/08/08 11:06:01 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
+#include <stdlib.h>
 
-int		run_execve(char *program, char **argv, char **envp)
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	pid_t	child_pid;
+	t_list		*ptr;
+	t_list		*tmp;
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
+	ptr = *alst;
+	while (ptr)
 	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
+		tmp = ptr->next;
+		ft_lstdelone(&ptr, del);
+		ptr = tmp;
 	}
+	*alst = NULL;
 }

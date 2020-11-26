@@ -6,13 +6,15 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 15:52:58 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/26 16:30:56 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <sys/types.h> //kill?
+# include <signal.h> //kill
 # include "libft.h"
 # include "libft_shorthand.h"
 

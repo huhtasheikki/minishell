@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hhuhtane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2019/10/25 13:50:55 by hhuhtane          #+#    #+#             */
+/*   Updated: 2019/10/30 18:53:07 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <stdlib.h>
+#include "libft.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+char	*ft_strnew(size_t size)
 {
-	pid_t	child_pid;
+	char	*str;
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
+	if (!(str = (char*)malloc(sizeof(char) * (size + 1))))
+		return (NULL);
+	while (size + 1)
 	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
+		str[size] = '\0';
+		size--;
 	}
+	return (str);
 }

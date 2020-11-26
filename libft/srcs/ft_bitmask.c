@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_bitmask.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2020/09/01 12:44:11 by hhuhtane          #+#    #+#             */
+/*   Updated: 2020/09/01 12:52:56 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+t_u32		ft_bitmask_u32(t_u32 n)
 {
-	pid_t	child_pid;
+	return (~(~((t_u32)0) << n));
+}
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
-	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
-	}
+t_u64		ft_bitmask_u64(t_u64 n)
+{
+	return (~(~((t_u64)0) << n));
 }

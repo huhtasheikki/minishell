@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_uintlen_base.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2020/03/24 12:19:30 by hhuhtane          #+#    #+#             */
+/*   Updated: 2020/08/07 13:24:38 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+size_t		ft_uintlen_base(unsigned int n, unsigned int base)
 {
-	pid_t	child_pid;
+	size_t		len;
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
+	len = 1;
+	while (n >= base)
 	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
+		n = n / base;
+		len++;
 	}
+	return (len);
 }

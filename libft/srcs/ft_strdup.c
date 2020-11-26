@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hhuhtane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2019/10/22 11:41:39 by hhuhtane          #+#    #+#             */
+/*   Updated: 2019/10/29 17:15:47 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <stdlib.h>
+#include "libft.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+char	*ft_strdup(const char *s1)
 {
-	pid_t	child_pid;
+	char		*s2;
+	size_t		i;
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
+	i = 0;
+	if (!(s2 = (char*)malloc(sizeof(char) * (ft_strlen(s1) + 1))))
+		return (NULL);
+	while (s1[i])
 	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
+		s2[i] = s1[i];
+		i++;
 	}
+	s2[i] = '\0';
+	return (s2);
 }

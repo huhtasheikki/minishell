@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_reset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2020/07/30 11:48:20 by hhuhtane          #+#    #+#             */
+/*   Updated: 2020/10/09 11:47:01 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ft_printf.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+int		ft_reset_format_info(t_all *all)
 {
-	pid_t	child_pid;
-
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
-	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
-	}
+	bzero(all->prefix, PREFIX + 1);
+	all->width = 0;
+	all->precision = 0;
+	all->format_info = 0;
+	all->format_id = 0;
+	all->padding_len = 0;
+	all->padding_char = ' ';
+	if (!(all->padding_str = ft_strnew(0)))
+		return (0);
+	all->arg_len = 0;
+	all->combined_len = 0;
+	all->prefix_len = 0;
+	return (1);
 }

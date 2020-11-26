@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   get_format_id.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2020/08/06 16:22:37 by hhuhtane          #+#    #+#             */
+/*   Updated: 2020/10/07 11:17:06 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ft_printf.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+int			get_format_id(t_all *all)
 {
-	pid_t	child_pid;
+	int		i;
+	char	*temp_ptr;
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
+	i = 0;
+	temp_ptr = all->format_ptr;
+	while (*temp_ptr && !ft_strchr(FORMAT_ID, *temp_ptr))
+		temp_ptr++;
+	while (i < FORMAT_ID_SIZE)
 	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
+		if (*temp_ptr == all->format_id_str[i])
+		{
+			all->format_id = 1 << i;
+			all->format_ptr = temp_ptr + 1;
+			return (1);
+		}
+		i++;
 	}
+	free(all->padding_str);
+	return (0);
 }

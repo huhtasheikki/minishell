@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hhuhtane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2019/10/28 10:11:08 by hhuhtane          #+#    #+#             */
+/*   Updated: 2019/10/31 13:51:17 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int		run_execve(char *program, char **argv, char **envp)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	pid_t	child_pid;
+	unsigned int	index;
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
+	index = 0;
+	while (s && f && s[index])
 	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
+		f(index, &s[index]);
+		index++;
 	}
 }

@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_strequ.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hhuhtane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2019/10/29 09:20:45 by hhuhtane          #+#    #+#             */
+/*   Updated: 2019/10/31 13:55:12 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int		run_execve(char *program, char **argv, char **envp)
+int		ft_strequ(char const *s1, char const *s2)
 {
-	pid_t	child_pid;
-
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
+	while (s1 && s2 && (*s1 || *s2))
 	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
+		if (*s1 != *s2)
+			return (0);
+		s1++;
+		s2++;
 	}
+	return (1);
 }

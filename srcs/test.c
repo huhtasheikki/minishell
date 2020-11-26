@@ -5,4 +5,5 @@ void	test(void)
 {
 	printf("Terve\n");
 	printf("Moro\n");
+	ft_putendl("Katos ft");
 }

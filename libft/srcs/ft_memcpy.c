@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hhuhtane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2019/10/18 12:01:14 by hhuhtane          #+#    #+#             */
+/*   Updated: 2020/11/02 16:07:48 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	pid_t	child_pid;
+	char			*d;
+	const char		*s;
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
+	d = dst;
+	s = src;
+	while ((dst || src) && n--)
 	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
+		*d++ = *s++;
 	}
+	return (dst);
 }

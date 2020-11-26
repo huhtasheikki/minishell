@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_do_flags.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2020/08/06 16:37:32 by hhuhtane          #+#    #+#             */
+/*   Updated: 2020/08/07 11:38:46 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ft_printf.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+void	ft_do_flags(t_all *all)
 {
-	pid_t	child_pid;
+	int		i;
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
+	i = 0;
+	while (i < FLAGS_SIZE)
 	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
+		if ((all->format_info & (1 << i)))
+		{
+			all->flags_fun_ptr[i](all);
+		}
+		i++;
 	}
 }

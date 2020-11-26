@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_padding.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2020/08/10 15:28:30 by hhuhtane          #+#    #+#             */
+/*   Updated: 2020/10/07 09:58:20 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ft_printf.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+int		ft_create_padding_str(t_all *all)
 {
-	pid_t	child_pid;
-
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
+	if (all->padding_len)
 	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
+		free(all->padding_str);
+		if (!(all->padding_str = ft_strnew(all->padding_len + 1)))
+			return (0);
+		ft_memset(all->padding_str, all->padding_char, all->padding_len);
 	}
+	return (1);
 }

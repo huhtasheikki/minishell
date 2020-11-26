@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_execve.c                                       :+:      :+:    :+:   */
+/*   ft_longlonglen_base.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 17:32:33 by hhuhtane         ###   ########.fr       */
+/*   Created: 2020/08/07 18:04:12 by hhuhtane          #+#    #+#             */
+/*   Updated: 2020/08/07 18:15:31 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		run_execve(char *program, char **argv, char **envp)
+size_t		ft_longlonglen_base(long long n, int base)
 {
-	pid_t	child_pid;
+	size_t		len;
 
-	child_pid = fork();
-	if (child_pid != 0)
-		return (child_pid);
-	else
+	len = 1;
+	if (n < 0)
+		len++;
+	while (n >= base || n <= -base)
 	{
-		execve(program, argv, envp);
-		error_minishell(program, EXECVE_ERROR);
+		n = n / base;
+		len++;
 	}
+	return (len);
 }
