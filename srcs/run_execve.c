@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   run_execve.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/26 15:52:58 by hhuhtane         ###   ########.fr       */
+/*   Created: 2020/11/26 15:38:44 by hhuhtane          #+#    #+#             */
+/*   Updated: 2020/11/26 15:53:06 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "libft.h"
-# include "libft_shorthand.h"
+int		run_execve(char *program, char **argv, char **envp)
+{
+	pid_t	child_pid;
 
-# define EXECVE_ERROR 2
-
-void	test(void);
-
-int		run_execve(char *program, char **argv, char **envp);
-
-#endif
+	child_pid = fork();
+	if (child_pid != 0)
+		return (child_pid);
+	else
+	{
+		execve(program, argv, envp);
+		error_minishell(program, EXECVE_ERROR);
+	}
+}
