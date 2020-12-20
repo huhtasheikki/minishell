@@ -6,14 +6,14 @@
 #    By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 16:18:57 by hhuhtane          #+#    #+#              #
-#    Updated: 2020/11/25 13:38:15 by hhuhtane         ###   ########.fr        #
+#    Updated: 2020/12/16 22:15:40 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 NAME = minishell
 
-_SRC = minishell.c test.c
+_SRC = minishell.c test.c env.c scanner.c expansions.c
 _OBJ = $(_SRC:.c=.o)
 _INC = minishell.h
 _LIBFT = libft.a

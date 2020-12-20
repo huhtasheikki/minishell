@@ -6,40 +6,21 @@
 /*   By: hhuhtane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 13:10:51 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/28 11:39:34 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/12/02 13:39:12 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include "libft_shorthand.h"
 # include <string.h>
 # include <unistd.h>
 # include <stdint.h>
+# include "libft_shorthand.h"
+# include "ft_printf.h"
 
 # define BUFF_SIZE 6
 # define MAX_FD 4000
-
-typedef struct		s_list
-{
-	void			*content;
-	size_t			content_size;
-	struct s_list	*next;
-}					t_list;
-
-typedef struct		s_dstruct
-{
-	t_ul64			m : 52;
-	t_ul64			exp : 11;
-	t_ul64			sign : 1;
-}					t_dstruct;
-
-typedef union		u_doubleu
-{
-	double			ld;
-	t_dstruct		bits;
-}					t_doubleu;
 
 int					ft_tolower(int c);
 int					ft_toupper(int c);
@@ -48,6 +29,7 @@ int					ft_isascii(int c);
 int					ft_isalnum(int c);
 int					ft_isdigit(int c);
 int					ft_isalpha(int c);
+int					ft_isspace(int c);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *str);
