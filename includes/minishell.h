@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/12/19 14:54:59 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/12/20 11:48:12 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct	s_token	t_token;
 struct					s_token
 {
 	char				*word;
+	t_token				*subtoken;
 	int					type;
 	t_token				*next;
 };
