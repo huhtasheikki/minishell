@@ -6,7 +6,7 @@
 /*   By: hhuhtane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 13:10:51 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/12/02 13:39:12 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/12 10:23:33 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void				ft_memdel(void **ap);
 void				ft_striter(char *s, void (*f)(char *));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 void				ft_strdel(char **as);
+void				ft_strarrdel(char ***arr);
 void				ft_strclr(char *s);
 void				ft_strtoupper(char *str);
 
@@ -98,6 +99,7 @@ size_t				ft_intlen_base(int n, int base);
 size_t				ft_uintlen_base(unsigned int n, unsigned int base);
 size_t				ft_uintmaxlen_base(uintmax_t n, uintmax_t base);
 size_t				ft_longlonglen_base(long long n, int base);
+size_t				ft_strarrlen(char **array);
 
 double				ft_pow(double x, double y);
 int					ft_log10(long double f);
@@ -111,6 +113,8 @@ void				ft_lstappend(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstrev(t_list **alst);
+void				ft_lstprint(t_list *lst);
+void				ft_lstfree(void *data, size_t size);
 
 /*
 ** FLOATING POINT VARIABLE FUNCTIONS
