@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:34:26 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/12/19 17:16:45 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/12/30 10:28:22 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,54 @@ t_list	*copy_envp(char **envp)
 char	**make_envp(t_list *envl)
 {
 	char		**envp;
-	t_list		lst_ptr;
+	t_list		*lst_ptr;
 	int			i;
 	int			j;
 
 	i = 0;
 	lst_ptr = envl;
-	while (lst_ptr)
+	while (lst_ptr->next)
 	{
 		lst_ptr = lst_ptr->next;
 		i++;
 	}
 	if (!(envp = ft_memalloc(sizeof(char*) * (i + 1))))
 		return (NULL); // ERRROR_FUN with malloc fail
-	lst_ptr = envl;
 	j = 0;
-	while (lst_ptr)
+	while (envl->next)
 	{
-		evnp[j] = lst_ptr;
-		lst->ptr = lst_ptr->next;
+		envl = envl->next;
+		envp[j++] = envl->content;
 	}
 	return (envp);
+}
+
+/*
+**===========================================================================**
+** FT_GETENV
+**===========================================================================**
+**   The getenv() function obtains the current value of the environment vari-
+**   able, name.  The application should not modify the string pointed to by
+**   the getenv() function.
+**===========================================================================**
+*/
+char	*ft_getenv(const char *name, t_list *envl)
+{
+	char		*envs;
+	size_t		len;
+
+// UNCOMMENT THESE AT THE END WHEN EVERYTHING WORKS!
+//	if (!name || !envl)
+//		return (NULL);
+	len = ft_strlen(name);
+	while (envl->next)
+	{
+		envl = envl->next;
+		envs = envl->content;
+		if (!ft_strncmp(envs, name, len) && envs[len] == '=')
+			return (envs + (len + 1));
+	}
+	return (NULL);
 }
 
 char	*get_env_var(char *var, t_list *envl)
@@ -82,6 +109,7 @@ char	*get_env_var(char *var, t_list *envl)
 	return (NULL);
 }
 
+/*
 // ft_setenv not tested yet
 int		ft_setenv(const char *name, const char *value, int override, t_list *envl)
 {
@@ -97,7 +125,7 @@ int		ft_setenv(const char *name, const char *value, int override, t_list *envl)
 		envs = envl->content;
 		if (!ft_strncmp(envs, name, len) && (envs[len] == '=') && override)
 		{
-			if (!(envs = ft_strnew(len + ft_strlen(value) + 1))) // with or without 1?
+			if (!(envs = ft_strnew(len + ft_strlen(value) + 2))) // with or without 1, or 2 if ending null and extra = ?
 				return (-1); // or error_fun(ENOMEM); which returns -1;
 			free(envl->content);
 			envs = ft_strncat(envs, name, len);
@@ -108,8 +136,31 @@ int		ft_setenv(const char *name, const char *value, int override, t_list *envl)
 			return (0);
 		}
 	}
+//	ft_printf("setenv %s, name %s\n", envl->content, name);
+	envs = ft_strnew(len + ft_strlen(value) + 2);
+	envs = ft_strncat(envs, name, len);
+	envs[len] = '=';
+	envs = ft_strncat(envs, value, ft_strlen(value));
+//	envs[ft_strlen(envs)] = '\0';
+//	ft_lstappend(&envl, ft_lstnew(envs, ft_strlen(envs) + 1));
+	envl->next = ft_lstnew(envs, ft_strlen(envs) + 1);
+//	envl->next = ft_lstnew("MOI", 3);
+//	ft_printf("setenv envs=%s, value %s\n", envs, value);
+	envl = envl->next;
+//	ft_printf("env->next %s\n", envl->content);
 	return (0);
 }
+*/
+
+/*
+**===========================================================================**
+** FT_UNSETENV
+**===========================================================================**
+**   The unsetenv() function deletes all instances of the variable name pointed
+**   to by name from the list.  Note that only the variable name (e.g., "NAME")
+**   should be given; "NAME=value" will not work.
+**===========================================================================**
+*/
 
 int		ft_unsetenv(const char *name, t_list *envl) // NOT TESTED YET
 {

@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 20:16:40 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/12/19 14:19:05 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/12/27 13:45:28 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,16 +139,24 @@ char	*tilde_exp(char *word, t_list *envl)
 
 int		expansions(t_token *token, t_list *envl)
 {
-	char	*word;
-	size_t	i;
+	t_token		*sub;
+	char		*word;
+	size_t		i;
 
 	i = 0;
 	while(token->next)
 	{
 		token = token->next;
-		word = token->word;
-		if (word[0] == '~')
-			token->word = tilde_exp(word, envl);
+		sub = token->subtoken;
+		while (sub)
+		{
+			word = sub->word;
+			sub->word = variable_exp(word, envl);
+			sub = sub->subtoken;
+		}
+		if (token->word[0] == '~')
+			token->word = tilde_exp(token->word, envl);
+		token->word = variable_exp(token->word, envl);
 	}
 
 //	dollar_exp(token);

@@ -6,14 +6,23 @@
 #    By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 16:18:57 by hhuhtane          #+#    #+#              #
-#    Updated: 2020/12/16 22:15:40 by hhuhtane         ###   ########.fr        #
+#    Updated: 2021/01/12 15:27:56 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 NAME = minishell
 
-_SRC = minishell.c test.c env.c scanner.c expansions.c
+_SRC = minishell.c test.c env.c scanner.c expansions.c \
+		parameter_exp.c \
+		simple_commands.c \
+		ft_setenv.c \
+		err_minishell.c \
+		echo.c \
+		remove_quotes.c \
+		builtin.c \
+		ft_cd.c \
+		builtin_env.c
 _OBJ = $(_SRC:.c=.o)
 _INC = minishell.h
 _LIBFT = libft.a
