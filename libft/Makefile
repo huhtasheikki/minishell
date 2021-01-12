@@ -6,7 +6,7 @@
 #    By: hhuhtane <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 11:39:33 by hhuhtane          #+#    #+#              #
-#    Updated: 2020/12/02 13:25:06 by hhuhtane         ###   ########.fr        #
+#    Updated: 2021/01/12 10:23:54 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -105,9 +105,14 @@ SRC =	ft_putchar.c \
 		ft_bitmask.c \
 		ft_vlqnew.c \
 		ft_lstrev.c \
-		ft_isspace.c
+		ft_isspace.c \
+		ft_strarrdel.c \
+		ft_strarrlen.c \
+		ft_lstprint.c \
+		ft_lstfree.c
 
 PRINTF_SRC = ft_printf.c \
+		ft_dprintf.c \
 		ft_initialize.c \
 		ft_parse.c \
 		get_variable_info.c \
