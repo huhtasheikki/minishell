@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 14:20:46 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/12 16:06:43 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/13 14:47:56 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,19 @@ int			call_simple_fun(char **argv, char **envp, t_list *envl)
 {
 //	char		**paths;
 	char		fpath[1024];
+	char		*path_ptr;
 	pid_t		parent;
 	int			i;
 
 	i = 0;
+	ft_bzero(fpath, 1024);
 // CHECK IF $PATH EXISTS
-	search_command(argv[0], ft_getenv("PATH", envl), fpath, 1024);
+	if (!(path_ptr = ft_getenv("PATH", envl)))
+		return (err_minishell(ERR_INVALID_INPUT)); // make err_minishell take argv[0];
+	if (argv[0][0] == '/')
+		ft_strcat(fpath, argv[0]);
+	else
+		search_command(argv[0], ft_getenv("PATH", envl), fpath, 1024);
 
 /*
 	paths = ft_strsplit(ft_getenv("PATH", envl), ':');

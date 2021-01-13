@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:38:57 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/11 11:19:03 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/13 14:35:10 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,23 @@ int		is_absolute_path(char *path)
 	return (0);
 }
 
-/*
-int		change_absolute_path(char *path, t_list *envl)
-{
-	char	buf[1024];
-
-	if (!path)
-		return (0);
-	if (getcwd(buf, 1024) == NULL)
-		return (-1); // return (err_fun("getcwd error"));
-	if (ft_setenv("OLDPWD", buf, 1, envl) == -1 && ft_setenv("PWD", path, 1, envl == -1)
-		return (-1); // error_fun;
-	
-}
-*/
-
 char	*get_absolute_path(char *rel, t_list *envl, char *path)
 {
 	char	*cdpath;
-	char	**paths;
+//	char	**paths;
 	int		i;
 
 	i = 0;
 	if (is_absolute_path(rel))
 		return (ft_strcat(path, rel));
+//	if (search_command(rel, ft_getenv("CDPATH", envl), path, 1024))
+//		return (path);
+
 	if ((cdpath = ft_getenv("CDPATH", envl)))
 	{
+		if (search_command(rel, cdpath, path, 1024))
+			return (path);
+/*
 		if (!(paths = ft_strsplit(cdpath, ':')))
 			return (NULL); //error fun;
 		while (paths[i])
@@ -69,7 +60,9 @@ char	*get_absolute_path(char *rel, t_list *envl, char *path)
 		}
 		ft_strarrdel(&paths);
 		free(paths);
+*/
 	}
+
 	path = getcwd(path, 1024);
 	path = ft_strcat(path, "/");
 	path = ft_strcat(path, rel);
@@ -79,11 +72,13 @@ char	*get_absolute_path(char *rel, t_list *envl, char *path)
 int		builtin_cd(char **argv, t_list *envl)
 {
 	char	path[1024];
+	char	cwd[1024];
 	char	*ptr;
 	int		argc;
 
 	argc = ft_strarrlen(argv);
 	ft_bzero(path, 1024);
+	ft_bzero(cwd, 1024);
 	if (argc > 2)
 		return (-1); // error_mess("too many args or something");
 	if (argc == 1)
@@ -96,7 +91,12 @@ int		builtin_cd(char **argv, t_list *envl)
 //		return (change_absolute(ft_getenv("HOME", envl), envl));
 	else
 		get_absolute_path(argv[1], envl, path);
-	ft_printf("KANSIO VAIHTUU!!!!!!! %s\n", path);
+	ft_unsetenv("OLDPWD", envl);
+	getcwd(cwd, 1024);
+	ft_setenv("OLDPWD", cwd, 1, envl);
 	chdir(path); //error check?
+	ft_unsetenv("PWD", envl);
+	getcwd(cwd, 1024);
+	ft_setenv("PWD", cwd, 1, envl);
 	return (0);
 }
