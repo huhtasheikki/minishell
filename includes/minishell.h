@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/12 15:33:20 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/13 15:47:45 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define EXECVE_ERROR 2
 # define ERR_INVALID_INPUT 4
 # define ERR_MALLOC 8
+# define ERR_HOME_NOT_SET 16
 
 # define MAXPATHLEN 256
 # define FNAME_MAX 256
@@ -139,7 +140,7 @@ struct 					s_lexer
 	char				**path;
 };
 
-int					err_minishell(int errorno);
+int					err_minishell(int errorno, char *name);
 
 void				test(void);
 

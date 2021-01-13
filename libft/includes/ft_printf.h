@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 17:41:37 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/16 16:25:15 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/02 11:54:23 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 */
 int				ft_printf(const char *format, ...);
 int				ft_asprintf(char **ret, const char *format, ...);
+int				ft_dprintf(int fd, const char *format, ...);
 int				ft_initialize(t_all *all, const char *format, size_t *len);
 int				ft_parse(t_all *all);
 int				get_variable(t_all *all);

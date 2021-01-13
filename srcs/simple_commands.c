@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 14:20:46 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/13 14:47:56 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/13 15:35:25 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int			search_command(char *file, char *epath, char *buf, size_t size)
 	i = 0;
 	ft_bzero(buf, size);
 	if (!(path_split = ft_strsplit(epath, ':')))
-		return (err_minishell(ERR_MALLOC));
+		return (err_minishell(ERR_MALLOC, NULL));
 	while (path_split[i])
 	{
 		ft_strcat(buf, path_split[i]);
@@ -107,7 +107,7 @@ int			call_simple_fun(char **argv, char **envp, t_list *envl)
 	ft_bzero(fpath, 1024);
 // CHECK IF $PATH EXISTS
 	if (!(path_ptr = ft_getenv("PATH", envl)))
-		return (err_minishell(ERR_INVALID_INPUT)); // make err_minishell take argv[0];
+		return (err_minishell(ERR_INVALID_INPUT, argv[0])); // make err_minishell take argv[0];
 	if (argv[0][0] == '/')
 		ft_strcat(fpath, argv[0]);
 	else

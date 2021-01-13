@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:28:34 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/12 16:24:43 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/13 15:54:09 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,41 +127,9 @@ int		main(int argc, char **argv, char **envp)
 	lexes.tokens = new_token(0);
 	lexes.state = STATE_IN_GENERAL;
 	lexes.envl = copy_envp(envp); // ERROR SHOULD RETURN OR EXITi
-//	env_lst = lexes.envl;
-//	lst_to_array(env_lst, own_envp);
-
-//	shell.path_arr = ft_strsplit(get_env_var("PATH", lexes.envl), ':');
-//	lexes.path = shell.path_arr;
-/*
-	while (own_envp[i])
-	{
-		ft_putendl(own_envp[i]);
-		i++;
-	}
-*/
-
-/*
-	env_lst = lexes.envl;
-	while (env_lst->next)
-	{
-		env_lst = env_lst->next;
-		ft_printf("%s\n", env_lst->content);
-	}
-*/
 
 	env_lst = lexes.envl;
 
-/*
-	ft_setenv("SHELL", "hevonen", 1, env_lst);
-	ft_setenv("SHELL", "koira", 1, env_lst);
-	ft_setenv("AAUUUAUAUAUA", "koira", 1, lexes.envl);
-*/
-
-//	getcwd(path, 256);
-//	ft_printf("FT path = %s\n", path);
-//	chdir("..");
-//	getcwd(path, 256);
-//	ft_printf("FT after change path = %s\n", path);
 	fd = open("/dev/stdin", O_RDWR);
 
 //	ft_printf("$HOME=|%s|\n $USER=|%s|\n", get_env_var("HOME", env_lst), get_env_var("USER", env_lst));
@@ -231,7 +199,7 @@ int		main(int argc, char **argv, char **envp)
 			i++;
 		}
 */
-		if (ft_builtin(argv2, lexes.envl))
+		if (ft_builtin(argv2, lexes.envl) > 0)
 		{
 //		if (!ft_echo(1, argv2))
 			ft_printf("NOT BUILTIN!\n");

@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:34:26 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/12 14:36:29 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/13 15:56:33 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	setenvs(const char *name, const char *val, t_list *envl, int len)
 	char		*envs;
 
 	if (!(envs = ft_strnew(len + ft_strlen(val) + 2)))
-		return (err_minishell(ERR_MALLOC));
+		return (err_minishell(ERR_MALLOC, NULL));
 	free(envl->content);
 	envs = ft_strncat(envs, name, len);
 	envs[len] = '=';
@@ -49,7 +49,7 @@ int			ft_setenv(const char *name, const char *val, int over, t_list *envl)
 
 	len = ft_strlen(name);
 	if (!name || ft_strchr(name, '='))
-		return (err_minishell(ERR_INVALID_INPUT));
+		return (err_minishell(ERR_INVALID_INPUT, "setenv"));
 	while (envl->next)
 	{
 		envl = envl->next;
@@ -63,15 +63,13 @@ int			ft_setenv(const char *name, const char *val, int over, t_list *envl)
 		}
 	}
 	if (!(envl->next = ft_lstnew(NULL, 0)))
-		return (err_minishell(ERR_MALLOC));
+		return (err_minishell(ERR_MALLOC, NULL));
 	return (setenvs(name, val, envl->next, len));
 }
 
 int			builtin_setenv(char **argv, t_list *envl)
 {
-	int		flags;
-
-	flags = 0;
-//	flags = get_setenv_opt(argv);
+	if (ft_strarrlen(argv) != 3)
+		return (err_minishell(ERR_INVALID_INPUT, argv[0]));
 	return (ft_setenv(argv[1], argv[2], 1, envl));
 }

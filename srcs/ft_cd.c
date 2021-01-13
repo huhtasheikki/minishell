@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:38:57 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/13 14:35:10 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/13 15:50:00 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		builtin_cd(char **argv, t_list *envl)
 		if ((ptr = ft_getenv("HOME", envl)))
 			ft_strcat(path, ft_getenv("HOME", envl));
 		else
-			return (-1); //errorsomething;
+			return (err_minishell(ERR_HOME_NOT_SET, argv[0])); //errorsomething;
 	}
 //		return (change_absolute(ft_getenv("HOME", envl), envl));
 	else

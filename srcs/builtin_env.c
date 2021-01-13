@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:21:09 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/12 15:31:26 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/13 15:37:02 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		init_env(char **argv, t_list *envl)
 		else
 			search_command(argv[i], ft_getenv("PATH", envl), path, 1024);
 		if (!(envp = make_envp(envl)))
-			return (err_minishell(ERR_MALLOC));
+			return (err_minishell(ERR_MALLOC, NULL));
 		execve(path, argv + i, envp);
 	}
 	else
