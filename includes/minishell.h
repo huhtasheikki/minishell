@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/13 15:47:45 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/14 09:37:01 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define ERR_INVALID_INPUT 4
 # define ERR_MALLOC 8
 # define ERR_HOME_NOT_SET 16
+# define ERR_WRITE
 
 # define MAXPATHLEN 256
 # define FNAME_MAX 256
@@ -131,6 +132,8 @@ typedef struct s_lexer	t_lexer;
 
 struct 					s_lexer
 {
+	char				**argv;
+	char				**envp;
 	int					mode;
 	t_list				*envl;
 	char				quote;
