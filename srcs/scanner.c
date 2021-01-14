@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 20:48:34 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/05 17:25:25 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/13 21:23:56 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ t_token		*general_machine(char *input, t_token *tok, int i, t_lexer *lex)
 		}
 		lex->quote = input[i];
 	}
-	if (input[i] == ' ')
+	if (input[i] == ' ' || input[i] == '\t')
 	{
 		if (j == 0)
 			return (tok);
