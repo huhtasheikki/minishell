@@ -6,7 +6,7 @@
 #    By: hhuhtane <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 11:39:33 by hhuhtane          #+#    #+#              #
-#    Updated: 2021/01/12 10:23:54 by hhuhtane         ###   ########.fr        #
+#    Updated: 2021/01/15 12:59:42 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -109,7 +109,8 @@ SRC =	ft_putchar.c \
 		ft_strarrdel.c \
 		ft_strarrlen.c \
 		ft_lstprint.c \
-		ft_lstfree.c
+		ft_lstfree.c \
+		ft_lstlen.c
 
 PRINTF_SRC = ft_printf.c \
 		ft_dprintf.c \

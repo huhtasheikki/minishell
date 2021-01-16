@@ -6,7 +6,7 @@
 /*   By: hhuhtane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 13:10:51 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/12 10:23:33 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/15 12:59:15 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstrev(t_list **alst);
 void				ft_lstprint(t_list *lst);
 void				ft_lstfree(void *data, size_t size);
+int					ft_lstlen(t_list *lst);
 
 /*
 ** FLOATING POINT VARIABLE FUNCTIONS

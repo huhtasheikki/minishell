@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/14 09:37:01 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/16 13:38:15 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@
 # define ERR_INVALID_INPUT 4
 # define ERR_MALLOC 8
 # define ERR_HOME_NOT_SET 16
-# define ERR_WRITE
+# define ERR_WRITE 32
+# define ERR_FILE_NOT_FOUND 64
+# define ERR_NO_PERMISSION 128
+# define ERR_TOO_FEW_ARGS 256
+# define ERR_TOO_MANY_ARGS 512
 
 # define MAXPATHLEN 256
 # define FNAME_MAX 256
@@ -173,6 +177,8 @@ int					ft_builtin(char **argv, t_list *envl);
 int					builtin_setenv(char **argv, t_list *envl);
 
 int					search_command(char *file, char *epath, char *buf, size_t size);
+
+int					is_absolute_path(char *path);
 
 /*
 ** BUILTIN FUNCTIONS

@@ -6,14 +6,17 @@
 #    By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 16:18:57 by hhuhtane          #+#    #+#              #
-#    Updated: 2021/01/14 11:32:19 by hhuhtane         ###   ########.fr        #
+#    Updated: 2021/01/15 12:13:28 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 NAME = minishell
 
-_SRC = main.c test.c env.c scanner.c expansions.c \
+_SRC = main.c \
+		env.c \
+		scanner.c \
+		expansions.c \
 		parameter_exp.c \
 		simple_commands.c \
 		ft_setenv.c \

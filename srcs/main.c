@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:14:00 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/14 11:38:13 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/16 13:39:15 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,13 @@ int		main(int argc, char **argv, char **envp)
 		lexer.mode = PROMPT_NORMAL;
 
 //make these to fun
+/*
 		if (ft_strcmp(buf, "exit") == 0)
 		{
 			free(buf);
 			break;
 		}
+*/
 		if (ft_strcmp(buf, "") == 0)
 		{
 //			ft_printf("TYHJA\n");

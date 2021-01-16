@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:34:26 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/12/30 10:28:22 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/16 11:48:38 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_list	*copy_envp(char **envp)
 	lastl = envl;
 	while(*envp)
 	{
-		if (!(lastl->next = ft_lstnew(*envp, ft_strlen(*envp))))
+		if (!(lastl->next = ft_lstnew(*envp, ft_strlen(*envp) + 1)))
 		{
 			while (envl)
 			{

@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:38:57 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/13 15:50:00 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/16 13:51:58 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,41 +28,16 @@ int		is_absolute_path(char *path)
 char	*get_absolute_path(char *rel, t_list *envl, char *path)
 {
 	char	*cdpath;
-//	char	**paths;
 	int		i;
 
 	i = 0;
 	if (is_absolute_path(rel))
 		return (ft_strcat(path, rel));
-//	if (search_command(rel, ft_getenv("CDPATH", envl), path, 1024))
-//		return (path);
-
 	if ((cdpath = ft_getenv("CDPATH", envl)))
 	{
 		if (search_command(rel, cdpath, path, 1024))
 			return (path);
-/*
-		if (!(paths = ft_strsplit(cdpath, ':')))
-			return (NULL); //error fun;
-		while (paths[i])
-		{
-			path = ft_strcat(path, paths[i]);
-			path = ft_strcat(path, "/");
-			path = ft_strcat(path, rel);
-			if (!access(path, F_OK))
-			{
-				ft_strarrdel(&paths);
-				free(paths);
-				return (path);
-			}
-			i++;
-			ft_bzero(path, 1024);
-		}
-		ft_strarrdel(&paths);
-		free(paths);
-*/
 	}
-
 	path = getcwd(path, 1024);
 	path = ft_strcat(path, "/");
 	path = ft_strcat(path, rel);
@@ -80,7 +55,7 @@ int		builtin_cd(char **argv, t_list *envl)
 	ft_bzero(path, 1024);
 	ft_bzero(cwd, 1024);
 	if (argc > 2)
-		return (-1); // error_mess("too many args or something");
+		return (err_minishell(ERR_TOO_MANY_ARGS, argv[0]));
 	if (argc == 1)
 	{
 		if ((ptr = ft_getenv("HOME", envl)))
@@ -91,11 +66,14 @@ int		builtin_cd(char **argv, t_list *envl)
 //		return (change_absolute(ft_getenv("HOME", envl), envl));
 	else
 		get_absolute_path(argv[1], envl, path);
-	ft_unsetenv("OLDPWD", envl);
+	if (access(path, F_OK))
+	{
+		err_minishell(ERR_FILE_NOT_FOUND, argv[1]);
+		return (0);
+	}
 	getcwd(cwd, 1024);
 	ft_setenv("OLDPWD", cwd, 1, envl);
 	chdir(path); //error check?
-	ft_unsetenv("PWD", envl);
 	getcwd(cwd, 1024);
 	ft_setenv("PWD", cwd, 1, envl);
 	return (0);

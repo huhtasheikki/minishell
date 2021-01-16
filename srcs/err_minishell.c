@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 09:27:50 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/13 15:52:07 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/16 13:38:40 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,18 @@
 int		err_minishell(int errorno, char *name)
 {
 	if (errorno == ERR_INVALID_INPUT)
-		ft_printf("%s: INVLAID INPUT\n", name);
+		ft_printf("minishell: %s: INVLAID INPUT\n", name);
 	else if (errorno == ERR_MALLOC)
-		ft_printf("MALLOC ERROR!!\n");
+		ft_printf("minishell: MALLOC ERROR!!\n");
 	else if (errorno == ERR_HOME_NOT_SET)
-		ft_printf("%s: HOME not set\n", name);
+		ft_printf("minishell: %s: HOME not set\n", name);
+	else if (errorno == ERR_FILE_NOT_FOUND)
+		ft_printf("minishell: no such file or directory: %s\n", name);
+	else if (errorno == ERR_NO_PERMISSION)
+		ft_printf("minishell: permission denied: %s\n", name);
+	else if (errorno == ERR_TOO_FEW_ARGS)
+		ft_printf("minishell: %s: too few arguments\n", name);
+	else if (errorno == ERR_TOO_MANY_ARGS)
+		ft_printf("minishell: %s: too many arguments\n", name);
 	return (-1);
 }
