@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 14:20:46 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/16 13:20:56 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/16 14:05:55 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ char	**create_argv(t_token *token)
 	while (token->next)
 	{
 		token = token->next;
+		if (get_token_len(token) == 0)
+			continue;
 		if (!(argv[i] = ft_memalloc(sizeof(char) * get_token_len(token) + 1)))
 		{
 			ft_strarrdel(&argv);
