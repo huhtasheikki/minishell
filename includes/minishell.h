@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/16 13:38:15 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/31 15:14:01 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 # define ERR_NO_PERMISSION 128
 # define ERR_TOO_FEW_ARGS 256
 # define ERR_TOO_MANY_ARGS 512
+# define ERR_INPUT_INIT 1024
 
 # define MAXPATHLEN 256
 # define FNAME_MAX 256
@@ -102,7 +103,12 @@ enum					e_state
 	STATE_IN_DQUOTE,
 	STATE_IN_ESCAPESEQUENCE,
 	STATE_IN_GENERAL,
-	STATE_IN_VARIABLE
+	STATE_IN_VARIABLE,
+
+	STATE_IN_OPTIONS,
+	STATE_IN_SETENV,
+	STATE_IN_UNSETENV,
+	STATE_IN_ALTPATH
 };
 
 enum					e_token
@@ -136,6 +142,7 @@ typedef struct s_lexer	t_lexer;
 
 struct 					s_lexer
 {
+	int					argc;
 	char				**argv;
 	char				**envp;
 	int					mode;
@@ -174,7 +181,6 @@ int					call_simple_fun(char **argv, char **envp, t_list *envl);
 
 void				clean_token(t_token *token);
 int					ft_builtin(char **argv, t_list *envl);
-int					builtin_setenv(char **argv, t_list *envl);
 
 int					search_command(char *file, char *epath, char *buf, size_t size);
 
@@ -185,7 +191,8 @@ int					is_absolute_path(char *path);
 */
 
 int					ft_echo(int fd, char **argv);
-int					builtin_cd(char **argv, t_list *envl);
-int					builtin_env(char **argv, t_list *envl);
+int					builtin_cd(int argc, char **argv, t_list *envl);
+int					builtin_env(int argc, char **argv, t_list *envl);
+int					builtin_setenv(int argc, char **argv, t_list *envl);
 
 #endif

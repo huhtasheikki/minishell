@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:38:57 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/16 13:51:58 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/27 11:13:33 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,33 +44,24 @@ char	*get_absolute_path(char *rel, t_list *envl, char *path)
 	return (path);
 }
 
-int		builtin_cd(char **argv, t_list *envl)
+int		builtin_cd(int argc, char **argv, t_list *envl)
 {
 	char	path[1024];
 	char	cwd[1024];
 	char	*ptr;
-	int		argc;
 
-	argc = ft_strarrlen(argv);
 	ft_bzero(path, 1024);
 	ft_bzero(cwd, 1024);
 	if (argc > 2)
 		return (err_minishell(ERR_TOO_MANY_ARGS, argv[0]));
-	if (argc == 1)
-	{
-		if ((ptr = ft_getenv("HOME", envl)))
-			ft_strcat(path, ft_getenv("HOME", envl));
-		else
-			return (err_minishell(ERR_HOME_NOT_SET, argv[0])); //errorsomething;
-	}
-//		return (change_absolute(ft_getenv("HOME", envl), envl));
-	else
+	if (argc == 2)
 		get_absolute_path(argv[1], envl, path);
+	else if ((ptr = ft_getenv("HOME", envl)))
+		ft_strcat(path, ft_getenv("HOME", envl));
+	else
+		return (err_minishell(ERR_HOME_NOT_SET, argv[0])); //errorsomething;
 	if (access(path, F_OK))
-	{
-		err_minishell(ERR_FILE_NOT_FOUND, argv[1]);
-		return (0);
-	}
+		return (err_minishell(ERR_FILE_NOT_FOUND, argv[1]));
 	getcwd(cwd, 1024);
 	ft_setenv("OLDPWD", cwd, 1, envl);
 	chdir(path); //error check?

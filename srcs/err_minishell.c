@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 09:27:50 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/16 13:38:40 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/31 15:15:25 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ int		err_minishell(int errorno, char *name)
 		ft_printf("minishell: %s: too few arguments\n", name);
 	else if (errorno == ERR_TOO_MANY_ARGS)
 		ft_printf("minishell: %s: too many arguments\n", name);
+	else if (errorno == ERR_INPUT_INIT)
+		ft_printf("minishell: \n", name);
 	return (-1);
 }

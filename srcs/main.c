@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:14:00 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/16 13:39:15 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/31 15:13:38 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	free_tokens(t_token *tokens)
 	}
 }
 
-void	init_lexer(t_lexer *lexer, char **envp)
+void	init_lexer(int argc, char **argv, t_lexer *lexer, char **envp)
 {
 	if (!(lexer->tokens = new_token(0)))
 		exit((err_minishell(ERR_MALLOC, NULL))); // error;
@@ -51,6 +51,8 @@ void	init_lexer(t_lexer *lexer, char **envp)
 		exit((err_minishell(ERR_MALLOC, NULL)));
 	lexer->state = STATE_IN_GENERAL;
 	lexer->mode = PROMPT_NORMAL;
+	lexer->argc = argc;
+	lexer->argv = argv;
 }
 
 void	print_prompt(int mode)
@@ -64,23 +66,13 @@ void	print_prompt(int mode)
 int		main(int argc, char **argv, char **envp)
 {
 	int			n; // number of bytes read
-//	char		buf[BUFFSIZE];
 	char		*buf;
 	t_lexer		lexer;
 
-	(void)argc;
-	(void)argv;
-	init_lexer(&lexer, envp);
+	init_lexer(argc, argv, &lexer, envp);
 	while (1)
 	{
 		print_prompt(lexer.mode);
-/*
-		while ((n = read(STDIN_FILENO, buf, BUFFSIZE)) > 0)
-			if (write(STDOUT_FILENO, buf, n) != n)
-				err_sys(ERR_WRITE, NULL);
-		if (n < 0)
-			err_minishell(ERR_READ);
-*/
 		get_next_line(STDIN_FILENO, &buf);
 		n = ft_strlen(buf);
 		if (scanner2(buf, n, &lexer) == 2)
@@ -90,14 +82,6 @@ int		main(int argc, char **argv, char **envp)
 		}
 		lexer.mode = PROMPT_NORMAL;
 
-//make these to fun
-/*
-		if (ft_strcmp(buf, "exit") == 0)
-		{
-			free(buf);
-			break;
-		}
-*/
 		if (ft_strcmp(buf, "") == 0)
 		{
 //			ft_printf("TYHJA\n");
@@ -109,9 +93,10 @@ int		main(int argc, char **argv, char **envp)
 		clean_token(lexer.tokens);
 		lexer.argv = create_argv(lexer.tokens); // errorfun!
 		lexer.envp = make_envp(lexer.envl); // is it needed here?
-		if (ft_builtin(lexer.argv, lexer.envl))
+		if (ft_builtin(lexer.argv, lexer.envl) > 0)
 			call_simple_fun(lexer.argv, lexer.envp, lexer.envl);
 		ft_strarrdel(&lexer.argv);
+		free(buf);
 		free(lexer.argv);
 		free(lexer.envp);
 		free_tokens(lexer.tokens->next);

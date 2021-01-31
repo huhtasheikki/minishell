@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:34:26 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/13 15:56:33 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/01/25 14:53:16 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,11 @@ int			ft_setenv(const char *name, const char *val, int over, t_list *envl)
 	return (setenvs(name, val, envl->next, len));
 }
 
-int			builtin_setenv(char **argv, t_list *envl)
+int			builtin_setenv(int argc, char **argv, t_list *envl)
 {
-	if (ft_strarrlen(argv) != 3)
+	if (argc == 1 || argc > 3)
 		return (err_minishell(ERR_INVALID_INPUT, argv[0]));
+	else if (argc == 2)
+		return (ft_setenv(argv[1], "", 1, envl));
 	return (ft_setenv(argv[1], argv[2], 1, envl));
 }
