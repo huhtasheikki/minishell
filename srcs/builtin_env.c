@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:21:09 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/01 13:43:53 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/02 18:48:12 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ int		execute_env(char **argv, t_list *envl, char *altpath, int options)
 		if (options & ENV_P_FLAG)
 			ret = search_command(argv[0], altpath, path, 1024);
 		else
+		{
+			if (!ft_getenv("PATH", envl))
+				return (err_minishell(ERR_PATH_NOT_SET, "env"));
 			ret = search_command(argv[0], ft_getenv("PATH", envl), path, 1024);
+		}
 		if (ret < 0)
 			return (-1);
 		if (ret == 0)

@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 20:16:40 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/01 14:07:33 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/02 18:34:33 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int		tilde_plusminus(char *prefix, char *temp, t_list *envl)
 	}
 	if (prefix[1] == '-' && (prefix[2] == '/' || prefix[2] == '\0'))
 	{
-		ft_putendl("MIINUS");
 		if ((ptr = get_env_var("OLDPWD", envl)))
 			ft_strncat(temp, ptr, 2049);
 		else

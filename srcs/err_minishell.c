@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 09:27:50 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/01 13:39:38 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/02 18:47:18 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int		err_minishell(int errorno, char *name)
 		ft_printf("minishell: MALLOC ERROR!!\n");
 	else if (errorno == ERR_HOME_NOT_SET)
 		ft_printf("minishell: %s: HOME not set\n", name);
+	else if (errorno == ERR_PATH_NOT_SET)
+		ft_printf("minishell: %s: PATH not set\n", name);
 	else if (errorno == ERR_FILE_NOT_FOUND)
 		ft_printf("minishell: no such file or directory: %s\n", name);
 	else if (errorno == ERR_NO_PERMISSION)

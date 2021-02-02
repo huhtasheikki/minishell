@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/02 16:51:47 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/02 18:46:00 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@
 # define ERR_STAT 4096
 # define ERR_NOT_A_DIR 8192
 # define ERR_TOO_MANY_SYMLINKS 16384
+# define ERR_PATH_NOT_SET 32768
 
 # define MAXPATHLEN 256
 # define FNAME_MAX 256
