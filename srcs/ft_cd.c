@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:38:57 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/02 17:23:06 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/02 17:53:23 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,9 @@ int		builtin_cd(int argc, char **argv, t_list *envl)
 
 	if (argc > 2)
 		return (err_minishell(ERR_TOO_MANY_ARGS, argv[0]));
-	if (argc == 2)
+	if (argc == 2 && !ft_strcmp(argv[1], "-") && ft_getenv("OLDPWD", envl))
+		ft_strcpy(path, ft_getenv("OLDPWD", envl));
+	else if (argc == 2)
 		get_absolute_path(argv[1], envl, path);
 	else if ((ptr = ft_getenv("HOME", envl)))
 		ft_strcpy(path, ft_getenv("HOME", envl));
