@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 16:04:57 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/25 16:38:54 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/01 13:58:34 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int		builtin_unsetenv(int argc, char **argv, t_list *envl)
 	argv++;
 	while (*argv)
 	{
-		ft_unsetenv(*argv, envl);
+		if (ft_unsetenv(*argv, envl) == -1)
+			err_minishell(ERR_INVALID_INPUT, *argv);
 		argv++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/31 15:14:01 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/02 16:51:47 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@
 # define ERR_TOO_FEW_ARGS 256
 # define ERR_TOO_MANY_ARGS 512
 # define ERR_INPUT_INIT 1024
+# define ERR_FORK_ERROR 2048
+# define ERR_STAT 4096
+# define ERR_NOT_A_DIR 8192
+# define ERR_TOO_MANY_SYMLINKS 16384
 
 # define MAXPATHLEN 256
 # define FNAME_MAX 256
@@ -118,6 +122,8 @@ enum					e_token
 	TOKEN_WORD,
 	TOKEN_EOI
 };
+
+typedef struct stat		t_stat;
 
 typedef struct			s_shell
 {

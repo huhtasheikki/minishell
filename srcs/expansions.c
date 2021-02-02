@@ -6,33 +6,14 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 20:16:40 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/12/27 13:45:28 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/01 14:07:33 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-int		isdirectory(const char *path)
-{
-    struct stat stats;
-
-    stat(path, &stats);
-
-    // Check for file existence
-    if (S_ISDIR(stats.st_mode))
-        return 1;
-
-    return 0;
-}
-
-int		isuserfold(char *user)
-{
-	
-}
-*/
-
-/**
+**
 ** Tilde Expansion - FROM BASH DOCUMENTATION
 **
 ** If a word begins with an unquoted tilde character (‘~’), all of the

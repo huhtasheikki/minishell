@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:21:09 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/31 19:22:09 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/01 13:43:53 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,21 +83,21 @@ int		get_setenvs(int argc, char **argv, t_list *envl, int i)
 
 int		get_env_options(char **argv, t_list *envl, int *options, char *altpath)
 {
-	int		temp;
+	int		o;
 	int		i;
 
 	i = 1;
 	while (argv[i] && argv[i][0] == '-')
 	{
-		temp = 0;
-		if ((temp = get_options(argv[i], envl)) == -1 || (temp > 8 && temp != 16))
+		o = 0;
+		if ((o = get_options(argv[i], envl)) == -1 || (o > 8 && o != 16))
 			return (err_minishell(ERR_INVALID_INPUT, "env"));
-		else if (temp & ENV_P_FLAG)
+		else if (o & ENV_P_FLAG)
 		{
 			ft_strncpy(altpath, argv[++i], 1024);
 			*options |= ENV_P_FLAG;
 		}
-		else if (temp & ENV_U_FLAG)
+		else if (o & ENV_U_FLAG)
 			ft_unsetenv(argv[++i], envl);
 		i++;
 	}
@@ -114,7 +114,7 @@ int		builtin_env(int argc, char **argv, t_list *envl)
 	i = 0;
 	options = 0;
 	if ((pid = fork()) < 0)
-		return (-1); // err_fun("fork error");
+		return (err_minishell(ERR_FORK_ERROR, argv[0]));
 	else if (pid == 0)
 	{
 		if ((i = get_env_options(argv, envl, &options, altpath)) < 0)
