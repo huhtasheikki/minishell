@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:14:00 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/31 15:13:38 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/03 23:44:08 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,11 @@ int		main(int argc, char **argv, char **envp)
 		}
 		lexer.mode = PROMPT_NORMAL;
 
-		if (ft_strcmp(buf, "") == 0)
+		if ((ft_strcmp(buf, "") == 0) || lexer.tokens->next->type == TOKEN_EMPTY) // or if it's just spaces and tabs
 		{
 //			ft_printf("TYHJA\n");
+			free_tokens(lexer.tokens->next);
+			lexer.tokens->next = NULL;
 			free(buf);
 			continue;
 		}
@@ -92,13 +94,13 @@ int		main(int argc, char **argv, char **envp)
 		expansions(lexer.tokens, lexer.envl);
 		clean_token(lexer.tokens);
 		lexer.argv = create_argv(lexer.tokens); // errorfun!
-		lexer.envp = make_envp(lexer.envl); // is it needed here?
+//		lexer.envp = make_envp(lexer.envl); // is it needed here?
 		if (ft_builtin(lexer.argv, lexer.envl) > 0)
 			call_simple_fun(lexer.argv, lexer.envp, lexer.envl);
 		ft_strarrdel(&lexer.argv);
 		free(buf);
 		free(lexer.argv);
-		free(lexer.envp);
+//		free(lexer.envp);
 		free_tokens(lexer.tokens->next);
 		lexer.tokens->next = NULL;
 	}
