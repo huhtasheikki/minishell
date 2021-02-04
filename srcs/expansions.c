@@ -6,14 +6,13 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 20:16:40 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/04 11:22:54 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/04 11:49:50 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**
 ** Tilde Expansion - FROM BASH DOCUMENTATION
 **
 ** If a word begins with an unquoted tilde character (‘~’), all of the
@@ -46,7 +45,6 @@
 ** expansion is also performed. Consequently, one may use filenames with
 ** tildes in assignments to PATH, MAILPATH, and CDPATH, and the shell
 ** assigns the expanded value.
-**
 */
 
 int		tilde_plusminus(char *prefix, char *temp, t_list *envl)
@@ -124,7 +122,7 @@ int		expansions(t_token *token, t_list *envl)
 	size_t		i;
 
 	i = 0;
-	while(token->next)
+	while (token->next)
 	{
 		token = token->next;
 		sub = token->subtoken;
@@ -139,7 +137,5 @@ int		expansions(t_token *token, t_list *envl)
 		token->word = variable_exp(token->word, envl);
 		clean_token(token);
 	}
-
-//	dollar_exp(token);
 	return (1);
 }
