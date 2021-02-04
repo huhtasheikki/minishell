@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 20:16:40 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/02 18:34:33 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/04 11:22:54 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ int		expansions(t_token *token, t_list *envl)
 		if (token->word[0] == '~')
 			token->word = tilde_exp(token->word, envl);
 		token->word = variable_exp(token->word, envl);
+		clean_token(token);
 	}
 
 //	dollar_exp(token);

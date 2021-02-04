@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 12:59:15 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/04 13:30:46 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/04 11:23:48 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,13 @@ void	clean_token(t_token *token)
 {
 	t_token		*sub;
 
-	while (token->next)
+	sub = token->subtoken;
+	while (sub)
 	{
-		token = token->next;
-		sub = token->subtoken;
-		while (sub)
-		{
-			remove_quotes(&sub->word);
-			remove_escape(&sub->word);
-			sub = sub->subtoken;
-		}
-		remove_quotes(&token->word);
-		remove_escape(&token->word);
+		remove_quotes(&sub->word);
+		remove_escape(&sub->word);
+		sub = sub->subtoken;
 	}
+	remove_quotes(&token->word);
+	remove_escape(&token->word);
 }

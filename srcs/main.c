@@ -6,24 +6,20 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:14:00 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/03 23:44:08 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/04 11:26:40 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-** THIS IS NOT YET IN THE PROJECT. UNIX BOOK MATERIAL TESTS.
-*/
-
 #include "minishell.h"
 
-//#define BUFFSIZE 4096
-
-void	free_tokens(t_token *tokens)
+t_token		*free_tokens(t_token *tokens)
 {
 	t_token		*sub;
 	t_token		*temp;
 	t_token		*token;
 
+	if (tokens == NULL)
+		return (NULL);
 	token = tokens;
 	while (token)
 	{
@@ -41,12 +37,13 @@ void	free_tokens(t_token *tokens)
 		free(tokens);
 		tokens = token;
 	}
+	return (NULL);
 }
 
-void	init_lexer(int argc, char **argv, t_lexer *lexer, char **envp)
+void		init_lexer(int argc, char **argv, t_lexer *lexer, char **envp)
 {
 	if (!(lexer->tokens = new_token(0)))
-		exit((err_minishell(ERR_MALLOC, NULL))); // error;
+		exit((err_minishell(ERR_MALLOC, NULL)));
 	if (!(lexer->envl = copy_envp(envp)))
 		exit((err_minishell(ERR_MALLOC, NULL)));
 	lexer->state = STATE_IN_GENERAL;
@@ -55,7 +52,7 @@ void	init_lexer(int argc, char **argv, t_lexer *lexer, char **envp)
 	lexer->argv = argv;
 }
 
-void	print_prompt(int mode)
+void		print_prompt(int mode)
 {
 	if (mode == PROMPT_NORMAL)
 		ft_printf("$> ");
@@ -63,46 +60,31 @@ void	print_prompt(int mode)
 		ft_printf("> ");
 }
 
-int		main(int argc, char **argv, char **envp)
+int			main(int argc, char **argv, char **envp)
 {
-	int			n; // number of bytes read
 	char		*buf;
 	t_lexer		lexer;
 
 	init_lexer(argc, argv, &lexer, envp);
+	buf = NULL;
 	while (1)
 	{
+		if (lexer.mode != PROMPT_QUOTE)
+			lexer.tokens->next = free_tokens(lexer.tokens->next);
 		print_prompt(lexer.mode);
+		free(buf);
 		get_next_line(STDIN_FILENO, &buf);
-		n = ft_strlen(buf);
-		if (scanner2(buf, n, &lexer) == 2)
-		{
-			lexer.mode = PROMPT_QUOTE;
+		if (scanner2(buf, ft_strlen(buf), &lexer) == 2)
 			continue;
-		}
 		lexer.mode = PROMPT_NORMAL;
-
-		if ((ft_strcmp(buf, "") == 0) || lexer.tokens->next->type == TOKEN_EMPTY) // or if it's just spaces and tabs
-		{
-//			ft_printf("TYHJA\n");
-			free_tokens(lexer.tokens->next);
-			lexer.tokens->next = NULL;
-			free(buf);
+		if (!ft_strcmp(buf, "") || lexer.tokens->next->type != TOKEN_WORD)
 			continue;
-		}
-
 		expansions(lexer.tokens, lexer.envl);
-		clean_token(lexer.tokens);
 		lexer.argv = create_argv(lexer.tokens); // errorfun!
-//		lexer.envp = make_envp(lexer.envl); // is it needed here?
 		if (ft_builtin(lexer.argv, lexer.envl) > 0)
 			call_simple_fun(lexer.argv, lexer.envp, lexer.envl);
 		ft_strarrdel(&lexer.argv);
-		free(buf);
 		free(lexer.argv);
-//		free(lexer.envp);
-		free_tokens(lexer.tokens->next);
-		lexer.tokens->next = NULL;
 	}
 	exit(0);
 }

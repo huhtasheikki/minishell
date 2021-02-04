@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 20:48:34 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/13 21:23:56 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/04 11:26:30 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,10 @@ int				scanner2(char *input, int size, t_lexer *lexer)
 		lexer->state = check_state(lexer->state, input[i++], &lexer->quote);
 	}
 	if (lexer->state == STATE_IN_QUOTED)
+	{
+		lexer->mode = PROMPT_QUOTE;
 		return (2);
+	}
 	return (1);
 }
 
