@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 20:48:34 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/04 11:26:30 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/05 18:08:24 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_token		*new_token(size_t size)
 	return (token);
 }
 
-int		check_state(int state, char c, char *quote)
+int			check_state(int state, char c, char *quote)
 {
 	if (state == STATE_IN_GENERAL)
 	{
@@ -103,11 +103,6 @@ t_token		*init_scanner(t_lexer *lexer, char *quote, int size)
 	}
 	else
 		token = get_last_subtoken(lexer->tokens);
-/* THIS OR get_last_token?
-	token = lexer->tokens;
-	while (token->next)
-		token = token->next;
-*/
 	if (lexer->state != STATE_IN_GENERAL && token->word) // or token->word[0]?
 	{
 		temp = ft_strnew(ft_strlen(token->word) + size + 1);
@@ -121,7 +116,6 @@ t_token		*init_scanner(t_lexer *lexer, char *quote, int size)
 		token = token->next;
 	}
 	*quote = lexer->quote;
-//	state = lexer->state;
 	return (token);
 }
 
@@ -144,18 +138,15 @@ t_token		*general_machine(char *input, t_token *tok, int i, t_lexer *lex)
 	{
 		if (j == 0)
 			return (tok);
-//		tok->word[j] = '\0';
 		tok = get_last_token(lex->tokens);
 		if (!(tok->next = new_token(ft_strlen(input) - i)))
 			return (NULL); // OR ERROR_FUN
-//		tok = tok->next; // NOT NEEDED AS POINTER ONLY IS IN THIS FUN?
 		return (tok->next);
 	}
 	if (ft_strchr(METACHARS, input[i]))
 	{
 		if (j > 0 && tok->type != TOKEN_OPERATOR)
 		{
-//			tok->word[j] = '\0';
 			tok = get_last_token(lex->tokens);
 			if (!(tok->next = new_token(ft_strlen(input) - i)))
 				return (NULL); // OR ERROR_FUN
@@ -181,8 +172,6 @@ t_token			*quote_machine(char *input, t_token *tok, int i, char *quote)
 {
 	tok->word[ft_strlen(tok->word)] = input[i];
 	(void)quote; // remove
-//	if (input[i] == *quote)
-//		*quote = 0;
 	return (tok);
 }
 
@@ -198,7 +187,6 @@ t_token			*operator_machine(char *input, t_token *tok, int i, t_lexer *lex)
 	}
 	else
 	{
-//		tok->word[j] = '\0';
 		if (!(tok->next = new_token(ft_strlen(input) - i)))
 			return (NULL); // OR ERROR_FUN WITH MALLOCERROR
 		return (general_machine(input, tok->next, i, lex));
@@ -226,10 +214,6 @@ int				scanner2(char *input, int size, t_lexer *lexer)
 			token = quote_machine(input, token, i, &lexer->quote);
 		if (lexer->state == STATE_IN_OPERATOR)
 			token = operator_machine(input, token, i, lexer);
-//		if (token->subtoken)
-//			token = token->subtoken;
-//		if (token->next)
-//			token = token->next;
 		lexer->state = check_state(lexer->state, input[i++], &lexer->quote);
 	}
 	if (lexer->state == STATE_IN_QUOTED)
@@ -239,23 +223,3 @@ int				scanner2(char *input, int size, t_lexer *lexer)
 	}
 	return (1);
 }
-
-/*
-READ INPUT
-SPLIT INPUT INTO TOKENS
-	if backlash before newline+end of input READ INPUT AGAIN
-EXPANSION
-	brace expansion
-	tilde
-	parameter and variable
-	command substitution
-	arithmetic
-	word splitting
-	pathname
-PARSE TOKENS TO SIMPLE COMMANDS (& other later)
-	CREATE ABSTRACT SYNTAX TREE FROM COMMANDS
-	CHECK THAT THE COMMAND WORKS WITH SHELL GRAMMAR
-EXECUTE COMMAND TREE
-	WAIT TILL ALL DONE
-REPEAT
-*/

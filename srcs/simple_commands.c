@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 14:20:46 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/02 20:08:13 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/05 18:11:14 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,6 @@ int		get_argv_size(t_token *token)
 	}
 	return (size);
 }
-
-/*
-int		isexecfile(char *path)
-{
-	if (access(path, F_OK) == -1)
-		err_minishell
-}
-*/
 
 char	**create_argv(t_token *token)
 {
@@ -77,10 +69,9 @@ char	**create_argv(t_token *token)
 	}
 	argv[i] = NULL;
 	return (argv);
-
 }
 
-int			search_command(char *file, char *epath, char *buf, size_t size)
+int		search_command(char *file, char *epath, char *buf, size_t size)
 {
 	char		**path_split;
 	int			i;
@@ -95,7 +86,7 @@ int			search_command(char *file, char *epath, char *buf, size_t size)
 		ft_strcat(buf, "/");
 		ft_strcat(buf, file);
 		if (!access(buf, F_OK))
-			break;
+			break ;
 		ft_bzero(buf, size);
 		i++;
 	}
@@ -106,7 +97,7 @@ int			search_command(char *file, char *epath, char *buf, size_t size)
 	return (0);
 }
 
-int			call_simple_fun(char **argv, char **envp, t_list *envl)
+int		call_simple_fun(char **argv, char **envp, t_list *envl)
 {
 	char		fpath[1024];
 	char		*path_ptr;
@@ -126,7 +117,6 @@ int			call_simple_fun(char **argv, char **envp, t_list *envl)
 	parent = fork();
 	if (parent == 0)
 	{
-//		ft_printf("CHILD\n");
 		execve(fpath, argv, envp);
 		exit(1);
 	}
