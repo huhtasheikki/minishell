@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 20:16:40 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/04 11:49:50 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/05 17:23:40 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,12 @@ char	*tilde_exp(char *word, t_list *envl)
 		if (!(ptr = get_env_var("HOME", envl)))
 		{
 			ft_strcat(temp, "/Users/");
-			ptr = get_env_var("USER", envl); //check if this folder exists?
+			ptr = get_env_var("USER", envl);
 		}
-		ft_strncat(temp, ptr, 2040);
+		if (ptr)
+			ft_strncat(temp, ptr, 2040);
 	}
-	else if (!tilde_plusminus(prefix, temp, envl))// some else if, if users home folder excist
+	else if (!tilde_plusminus(prefix, temp, envl))
 	{
 		ft_strcat(temp, "/Users/");
 		ft_strncat(temp, prefix + 1, 2048 - ft_strlen(temp));
@@ -111,8 +112,7 @@ char	*tilde_exp(char *word, t_list *envl)
 	if (word[i])
 		ft_strncat(temp, word + i, 2048 - ft_strlen(temp));
 	free(word);
-	word = ft_strdup(temp); // error check if malloc fails!
-	return (word);
+	return (ft_strdup(temp));
 }
 
 int		expansions(t_token *token, t_list *envl)

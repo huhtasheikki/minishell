@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:34:26 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/25 14:53:16 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/04 13:01:13 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	setenvs(const char *name, const char *val, t_list *envl, int len)
 	envs[len] = '=';
 	envs = ft_strncat(envs, val, ft_strlen(val));
 	envl->content = envs;
-	envl->content_size = ft_strlen(envs) + 1; // with or without 1?
+	envl->content_size = ft_strlen(envs) + 1;
 	return (0);
 }
 

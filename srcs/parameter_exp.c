@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 14:39:46 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/02 12:31:56 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/05 18:02:23 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int		get_var_name(char *prefix, char *word)
 
 	i = 0;
 	j = 0;
+	ft_bzero(prefix, 2049);
 	if (word[j] == '{')
 	{
 		quote = '}';
@@ -37,15 +38,27 @@ int		get_var_name(char *prefix, char *word)
 	return (j);
 }
 
+int		variable_to_string(char *word, char *temp, int *temp_i, t_list *envl)
+{
+	char	prefix[2048];
+	char	*ptr;
+	int		i;
+
+	i = get_var_name(prefix, word + 1);
+	if ((ptr = get_env_var(prefix, envl)))
+	{
+		ft_strcat(temp, ptr);
+		*temp_i += i;
+	}
+	return (i);
+}
+
 char	*variable_exp(char *word, t_list *envl)
 {
-	char	prefix[2049];
 	char	temp[2049];
-	char	*ptr;
 	int		i;
 	int		j;
 
-	ft_bzero(prefix, 2049);
 	ft_bzero(temp, 2049);
 	i = 0;
 	j = 0;
@@ -54,16 +67,7 @@ char	*variable_exp(char *word, t_list *envl)
 	while (word[i] != '\0')
 	{
 		if (word[i] == '$')
-		{
-			i++;
-			i += get_var_name(prefix, word + i);
-			ptr = get_env_var(prefix, envl);
-			if (ptr)
-			{
-				ft_strcat(temp, ptr);
-				j += ft_strlen(ptr);
-			}
-		}
+			i += variable_to_string(word + i, temp, &j, envl);
 		else if (word[i] == '\'' || word[i] == '"')
 			i++;
 		else
@@ -71,26 +75,5 @@ char	*variable_exp(char *word, t_list *envl)
 	}
 	free(word);
 	word = ft_strdup(temp);
-
-//	ptr = ft_memccpy(temp, word, '$', ft_strlen(word));
-//	ft_printf("temp %s\n", temp);
-//	ft_printf("ptr %s\n", ptr);
-//	word = ft_strchr(word, '$') + 1;
-//	while (*word && j < 2048)
-//	{
-//		if (*word == '\'' || *word == '"')
-//			break;
-//		prefix[j++] = *word;
-//		ptr++;
-//		word++;
-//	}
-//	prefix[j] = '\0';
-//	ft_printf("VAR name=%s\n", prefix);
-//	ptr = get_env_var(prefix, envl);
-//	ft_strcat(temp, ptr);
-//	free(ptr2);
-//	word = ft_strdup(temp);
-
 	return (word);
-//	return (variable_exp(word, envl));
 }

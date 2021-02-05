@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:21:09 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/02 18:48:12 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/04 13:04:02 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		execute_env(char **argv, t_list *envl, char *altpath, int options)
 			return (-1);
 		if (ret == 0)
 			return (err_minishell(ERR_FILE_NOT_FOUND, argv[0]));
-		if (!(envp = make_envp(envl))) // THIS IS NOT CORRECT!!! WRONG ERROR
+		if (!(envp = make_envp(envl)))
 			return (err_minishell(ERR_MALLOC, NULL));
 		execve(path, argv, envp);
 	}

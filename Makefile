@@ -6,7 +6,7 @@
 #    By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 16:18:57 by hhuhtane          #+#    #+#              #
-#    Updated: 2021/01/15 12:13:28 by hhuhtane         ###   ########.fr        #
+#    Updated: 2021/02/04 12:52:33 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ _SRC = main.c \
 		builtin.c \
 		ft_cd.c \
 		builtin_env.c
+
 _OBJ = $(_SRC:.c=.o)
 _INC = minishell.h
 _LIBFT = libft.a
