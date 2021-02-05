@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:14:00 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/04 11:26:40 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/05 22:28:50 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void		init_lexer(int argc, char **argv, t_lexer *lexer, char **envp)
 		exit((err_minishell(ERR_MALLOC, NULL)));
 	if (!(lexer->envl = copy_envp(envp)))
 		exit((err_minishell(ERR_MALLOC, NULL)));
+	if (ft_setenv("SHELL", argv[0], 1, lexer->envl) < 0)
+		exit(err_minishell(ERR_MALLOC, NULL));
 	lexer->state = STATE_IN_GENERAL;
 	lexer->mode = PROMPT_NORMAL;
 	lexer->argc = argc;
@@ -74,7 +76,7 @@ int			main(int argc, char **argv, char **envp)
 		print_prompt(lexer.mode);
 		free(buf);
 		get_next_line(STDIN_FILENO, &buf);
-		if (scanner2(buf, ft_strlen(buf), &lexer) == 2)
+		if (scanner2(buf, ft_strlen(buf), &lexer) == PROMPT_QUOTE)
 			continue;
 		lexer.mode = PROMPT_NORMAL;
 		if (!ft_strcmp(buf, "") || lexer.tokens->next->type != TOKEN_WORD)

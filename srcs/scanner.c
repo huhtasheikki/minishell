@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 20:48:34 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/05 18:08:24 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/05 22:33:34 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 ** a comment that continues to the end of the input line. This special
 ** meaning is prevented when preceded by \ and in quotations using `, ',
 ** and ".
-**
 */
 
 t_token		*new_token(size_t size)
@@ -40,9 +39,9 @@ t_token		*new_token(size_t size)
 	t_token		*token;
 
 	if (!(token = ft_memalloc(sizeof(t_token))))
-		exit(1); // PROPER ERROR FUNCTION NEEDED WITH OWN ERRNO
+		exit(err_minishell(ERR_MALLOC, NULL));
 	if (!(token->word = ft_strnew(size)))
-		exit(1); // SAME AS ABOVE
+		exit(err_minishell(ERR_MALLOC, NULL));
 	token->type = TOKEN_EMPTY;
 	token->subtoken = NULL;
 	token->next = NULL;
@@ -72,17 +71,17 @@ int			check_state(int state, char c, char *quote)
 	}
 	if (state == STATE_IN_OPERATOR && ft_strchr(METACHARS, c))
 		return (STATE_IN_OPERATOR);
-	return (STATE_IN_GENERAL); // IS THIS OK?
+	return (STATE_IN_GENERAL);
 }
 
-t_token		*get_last_token(t_token *token) // NEW. OK?
+t_token		*get_last_token(t_token *token)
 {
 	while (token->next)
 		token = token->next;
 	return (token);
 }
 
-t_token		*get_last_subtoken(t_token *token) // NEW. OK?
+t_token		*get_last_subtoken(t_token *token)
 {
 	while (token->next)
 		token = token->next;
@@ -103,7 +102,7 @@ t_token		*init_scanner(t_lexer *lexer, char *quote, int size)
 	}
 	else
 		token = get_last_subtoken(lexer->tokens);
-	if (lexer->state != STATE_IN_GENERAL && token->word) // or token->word[0]?
+	if (lexer->state != STATE_IN_GENERAL && token->word)
 	{
 		temp = ft_strnew(ft_strlen(token->word) + size + 1);
 		temp = ft_strcat(temp, token->word);
@@ -168,14 +167,13 @@ t_token		*general_machine(char *input, t_token *tok, int i, t_lexer *lex)
 	return (tok);
 }
 
-t_token			*quote_machine(char *input, t_token *tok, int i, char *quote)
+t_token		*quote_machine(char *input, t_token *tok, int i)
 {
 	tok->word[ft_strlen(tok->word)] = input[i];
-	(void)quote; // remove
 	return (tok);
 }
 
-t_token			*operator_machine(char *input, t_token *tok, int i, t_lexer *lex)
+t_token		*op_machine(char *input, t_token *tok, int i, t_lexer *lex)
 {
 	int			j;
 
@@ -194,7 +192,7 @@ t_token			*operator_machine(char *input, t_token *tok, int i, t_lexer *lex)
 	return (tok);
 }
 
-int				scanner2(char *input, int size, t_lexer *lexer)
+int			scanner2(char *input, int size, t_lexer *lexer)
 {
 	t_token		*token;
 	char		quote;
@@ -206,20 +204,17 @@ int				scanner2(char *input, int size, t_lexer *lexer)
 	j = ft_strlen(token->word);
 	if (size == 0)
 		return (0);
-	while (i < size) // should it stop at '\0' or this
+	while (i < size)
 	{
 		if (lexer->state == STATE_IN_GENERAL)
 			token = general_machine(input, token, i, lexer);
 		if (lexer->state == STATE_IN_QUOTED)
-			token = quote_machine(input, token, i, &lexer->quote);
+			token = quote_machine(input, token, i);
 		if (lexer->state == STATE_IN_OPERATOR)
-			token = operator_machine(input, token, i, lexer);
+			token = op_machine(input, token, i, lexer);
 		lexer->state = check_state(lexer->state, input[i++], &lexer->quote);
 	}
 	if (lexer->state == STATE_IN_QUOTED)
-	{
-		lexer->mode = PROMPT_QUOTE;
-		return (2);
-	}
+		return ((lexer->mode = PROMPT_QUOTE));
 	return (1);
 }
