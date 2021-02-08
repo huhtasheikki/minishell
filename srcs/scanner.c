@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 20:48:34 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/05 22:33:34 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/08 14:18:17 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,142 +34,64 @@
 ** and ".
 */
 
-t_token		*new_token(size_t size)
+t_token		*general_op(char *input, t_token *tok, int j, t_lexer *lex)
 {
-	t_token		*token;
-
-	if (!(token = ft_memalloc(sizeof(t_token))))
-		exit(err_minishell(ERR_MALLOC, NULL));
-	if (!(token->word = ft_strnew(size)))
-		exit(err_minishell(ERR_MALLOC, NULL));
-	token->type = TOKEN_EMPTY;
-	token->subtoken = NULL;
-	token->next = NULL;
-	return (token);
+	if (j > 0 && tok->type != TOKEN_OPERATOR)
+	{
+		tok = get_last_token(lex->tokens);
+		if (!(tok->next = new_token(ft_strlen(input))))
+			return (NULL); // OR ERROR_FUN
+		tok = tok->next;
+		j = 0;
+	}
+	tok->type = TOKEN_OPERATOR;
+	tok->word[j] = *input;
+	return (tok);
 }
 
-int			check_state(int state, char c, char *quote)
+t_token		*general_machine(char *input, t_token *tok, int j, t_lexer *lex)
 {
-	if (state == STATE_IN_GENERAL)
-	{
-		if (c == '\\' || c == '\'' || c == '"')
-			return (STATE_IN_QUOTED);
-		if (ft_strchr(METACHARS, c))
-			return (STATE_IN_OPERATOR);
-		else
-			return (STATE_IN_GENERAL);
-	}
-	if (state == STATE_IN_QUOTED)
-	{
-		if (*quote == '\\' || c == *quote)
-		{
-			*quote = 0;
-			return (STATE_IN_GENERAL);
-		}
-		else
-			return (STATE_IN_QUOTED);
-	}
-	if (state == STATE_IN_OPERATOR && ft_strchr(METACHARS, c))
-		return (STATE_IN_OPERATOR);
-	return (STATE_IN_GENERAL);
-}
-
-t_token		*get_last_token(t_token *token)
-{
-	while (token->next)
-		token = token->next;
-	return (token);
-}
-
-t_token		*get_last_subtoken(t_token *token)
-{
-	while (token->next)
-		token = token->next;
-	if (token->subtoken)
-		token = get_last_token(token->subtoken);
-	return (token);
-}
-
-t_token		*init_scanner(t_lexer *lexer, char *quote, int size)
-{
-	t_token		*token;
-	char		*temp;
-
-	if (lexer->state != STATE_IN_QUOTED)
-	{
-		token = get_last_token(lexer->tokens);
-		lexer->state = STATE_IN_GENERAL;
-	}
-	else
-		token = get_last_subtoken(lexer->tokens);
-	if (lexer->state != STATE_IN_GENERAL && token->word)
-	{
-		temp = ft_strnew(ft_strlen(token->word) + size + 1);
-		temp = ft_strcat(temp, token->word);
-		free(token->word);
-		token->word = temp;
-	}
-	else
-	{
-		token->next = new_token(size); //change this to just token;
-		token = token->next;
-	}
-	*quote = lexer->quote;
-	return (token);
-}
-
-t_token		*general_machine(char *input, t_token *tok, int i, t_lexer *lex)
-{
-	int		j;
-
-	j = ft_strlen(tok->word);
-	if (input[i] == '\'' || input[i] == '"' || input[i] == '\\')
+	if (*input == '\'' || *input == '"' || *input == '\\')
 	{
 		if (tok->word[0])
 		{
-			tok->subtoken = new_token(ft_strlen(input) - i);
+			tok->subtoken = new_token(ft_strlen(input));
 			tok = tok->subtoken;
 			j = 0;
 		}
-		lex->quote = input[i];
+		lex->quote = *input;
 	}
-	if (input[i] == ' ' || input[i] == '\t')
+	if (*input == ' ' || *input == '\t')
 	{
 		if (j == 0)
 			return (tok);
 		tok = get_last_token(lex->tokens);
-		if (!(tok->next = new_token(ft_strlen(input) - i)))
+		if (!(tok->next = new_token(ft_strlen(input))))
 			return (NULL); // OR ERROR_FUN
 		return (tok->next);
 	}
-	if (ft_strchr(METACHARS, input[i]))
-	{
-		if (j > 0 && tok->type != TOKEN_OPERATOR)
-		{
-			tok = get_last_token(lex->tokens);
-			if (!(tok->next = new_token(ft_strlen(input) - i)))
-				return (NULL); // OR ERROR_FUN
-			tok = tok->next;
-			j = 0;
-		}
-		tok->type = TOKEN_OPERATOR;
-		tok->word[j] = input[i];
-		return (tok);
-	}
-	if (tok->word[0] == '\'' || tok->word[0] == '"' || tok->word[0] == '\\')
-	{
-		tok->subtoken = new_token(ft_strlen(input) - i);
-		tok = tok->subtoken;
-		j = 0;
-	}
+	if (ft_strchr(METACHARS, *input))
+		return (general_op(input, tok, j, lex));
 	tok->type = TOKEN_WORD;
-	tok->word[j] = input[i];
+	tok->word[j] = *input;
 	return (tok);
 }
 
-t_token		*quote_machine(char *input, t_token *tok, int i)
+t_token		*quote_machine(char *input, t_token *tok, int i, t_lexer *lex)
 {
 	tok->word[ft_strlen(tok->word)] = input[i];
+	if (input[i] == '\'' || input[i] == '"' || input[i] == '\\')
+	{
+		if (ft_isspace(input[i + 1] || ft_strchr(METACHARS, input[i + 1])))
+		{
+			tok = get_last_token(lex->tokens);
+			if (!(tok->next = new_token(ft_strlen(input) - i)))
+				return (NULL); // ERRORR FUN?
+			return (tok->next);
+		}
+		tok->subtoken = new_token(ft_strlen(input) - i);
+		tok = tok->subtoken;
+	}
 	return (tok);
 }
 
@@ -194,24 +116,24 @@ t_token		*op_machine(char *input, t_token *tok, int i, t_lexer *lex)
 
 int			scanner2(char *input, int size, t_lexer *lexer)
 {
-	t_token		*token;
+	t_token		*tok;
 	char		quote;
 	int			i;
 	int			j;
 
-	token = init_scanner(lexer, &quote, size);
+	tok = init_scanner(lexer, &quote, size);
 	i = 0;
-	j = ft_strlen(token->word);
+	j = ft_strlen(tok->word);
 	if (size == 0)
 		return (0);
 	while (i < size)
 	{
 		if (lexer->state == STATE_IN_GENERAL)
-			token = general_machine(input, token, i, lexer);
+			tok = general_machine(input + i, tok, ft_strlen(tok->word), lexer);
 		if (lexer->state == STATE_IN_QUOTED)
-			token = quote_machine(input, token, i);
+			tok = quote_machine(input + i, tok, 0, lexer);
 		if (lexer->state == STATE_IN_OPERATOR)
-			token = op_machine(input, token, i, lexer);
+			tok = op_machine(input + i, tok, 0, lexer);
 		lexer->state = check_state(lexer->state, input[i++], &lexer->quote);
 	}
 	if (lexer->state == STATE_IN_QUOTED)

@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 14:20:46 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/05 18:11:14 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/08 13:52:55 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,26 @@ int		get_argv_size(t_token *token)
 	}
 	return (size);
 }
+
+/*
+t_list	*create_argv_list(t_token *token)
+{
+	t_list		*argv_list;
+	t_token		*ptr;
+	char		**argv;
+	int			i;
+
+	argv_list = ft_lstnew(NULL, 0);
+	while (token->next)
+	{
+		token = token->next;
+		if (token->type == TOKEN_OPERATOR)
+		{
+			ft_lstappend(&ft_lstnew(argv, 10);
+		}
+	}
+}
+*/
 
 char	**create_argv(t_token *token)
 {

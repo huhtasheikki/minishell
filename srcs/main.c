@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:14:00 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/05 22:28:50 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/08 11:34:19 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int			main(int argc, char **argv, char **envp)
 		if (!ft_strcmp(buf, "") || lexer.tokens->next->type != TOKEN_WORD)
 			continue;
 		expansions(lexer.tokens, lexer.envl);
-		lexer.argv = create_argv(lexer.tokens); // errorfun!
+		lexer.argv = create_argv(lexer.tokens); // errorfun! t_list argvs?
 		if (ft_builtin(lexer.argv, lexer.envl) > 0)
 			call_simple_fun(lexer.argv, lexer.envp, lexer.envl);
 		ft_strarrdel(&lexer.argv);
