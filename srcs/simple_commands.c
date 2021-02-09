@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 14:20:46 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/09 15:24:21 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/09 19:15:37 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,9 @@ int		search_command(char *file, char *epath, char *buf, size_t size)
 	return (0);
 }
 
-int		call_simple_fun(char **argv, char **envp, t_list *envl)
+int		call_simple_fun(char **argv, t_list *envl)
 {
+	char		**envp;
 	char		fpath[1024];
 	char		*path_ptr;
 	pid_t		parent;
@@ -137,6 +138,8 @@ int		call_simple_fun(char **argv, char **envp, t_list *envl)
 	parent = fork();
 	if (parent == 0)
 	{
+		if (!(envp = make_envp(envl)))
+			exit(err_minishell(ERR_MALLOC, NULL));
 		execve(fpath, argv, envp);
 		exit(1);
 	}

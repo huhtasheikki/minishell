@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/08 15:07:22 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/09 19:19:53 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ char				*variable_exp(char *word, t_list *envl);
 char				**create_argv(t_token *token);
 t_list				*create_commandlist(t_token *tok);
 
-int					call_simple_fun(char **argv, char **envp, t_list *envl);
+int					call_simple_fun(char **argv, t_list *envl);
 
 void				clean_token(t_token *token);
 int					ft_builtin(char **argv, t_list *envl);
@@ -187,6 +187,8 @@ int					ft_builtin(char **argv, t_list *envl);
 int					search_command(char *file, char *epath, char *buf, size_t size);
 
 int					is_absolute_path(char *path);
+
+int					parse_commands(t_list *commands, t_lexer *lex);
 
 /*
 ** SCANNER

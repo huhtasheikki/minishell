@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 14:25:04 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/09 15:23:57 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/09 19:21:05 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,8 @@ t_list		*create_commandlist(t_token *tok)
 		{
 			argv[i] = 0;
 			i = 0;
-//			temp = ft_memalloc(sizeof(t_list*));
-//			temp->content = ft_memalloc(sizeof(char**));
 			ft_lstappend(&commands, ft_lstnew(argv, sizeof(char*) * (size + 1)));
 			free(argv);
-//			ft_strarrdel(&argv);
 			if (tok->next)
 			{
 				size = get_commandsize(tok->next);
@@ -96,7 +93,20 @@ t_list		*create_commandlist(t_token *tok)
 	}
 	argv[i] = 0;
 	ft_lstappend(&commands, ft_lstnew(argv, sizeof(char*) * (size + 1)));
-//	ft_strarrdel(&argv);
 	free(argv);
 	return (commands);
+}
+
+int			parse_commands(t_list *commands, t_lexer *lex)
+{
+	char		**argv;
+
+	while (commands->next)
+	{
+		commands = commands->next;
+		argv = commands->content;
+		if (ft_builtin(argv, lex->envl) > 0)
+			call_simple_fun(argv, lex->envl);
+	}
+	return (0);
 }
