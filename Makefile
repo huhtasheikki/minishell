@@ -6,7 +6,7 @@
 #    By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 16:18:57 by hhuhtane          #+#    #+#              #
-#    Updated: 2021/02/04 12:52:33 by hhuhtane         ###   ########.fr        #
+#    Updated: 2021/02/08 15:03:52 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ NAME = minishell
 _SRC = main.c \
 		env.c \
 		scanner.c \
+		scanner2.c \
 		expansions.c \
 		parameter_exp.c \
 		simple_commands.c \
@@ -25,7 +26,8 @@ _SRC = main.c \
 		remove_quotes.c \
 		builtin.c \
 		ft_cd.c \
-		builtin_env.c
+		builtin_env.c \
+		create_commandlist.c
 
 _OBJ = $(_SRC:.c=.o)
 _INC = minishell.h
