@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:14:00 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/09 19:29:13 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/09 19:49:59 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ void		delete_lst(void *data, size_t i)
 	argv = data;
 	while (argv && *argv)
 	{
-		ft_strarrdel(&argv);
+		ft_bzero(*argv, ft_strlen(*argv));
+		free(*argv);
 		argv++;
 	}
 	ft_bzero(data, i);

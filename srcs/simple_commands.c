@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 14:20:46 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/09 19:15:37 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/09 19:51:18 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,6 @@ int		get_argv_size(t_token *token)
 	return (size);
 }
 
-/*
-t_list	*create_argv_list(t_token *token)
-{
-	t_list		*argv_list;
-	t_token		*ptr;
-	char		**argv;
-	int			i;
-
-	argv_list = ft_lstnew(NULL, 0);
-	while (token->next)
-	{
-		token = token->next;
-		if (token->type == TOKEN_OPERATOR)
-		{
-			ft_lstappend(&ft_lstnew(argv, 10);
-		}
-	}
-}
-*/
-
 char	**create_argv(t_token *token)
 {
 	t_token		*ptr;
@@ -73,11 +53,7 @@ char	**create_argv(t_token *token)
 		if (get_token_len(token) == 0 || token->type != TOKEN_WORD)
 			continue;
 		if (!(argv[i] = ft_memalloc(sizeof(char) * get_token_len(token) + 1)))
-		{
-			ft_strarrdel(&argv);
-			free(argv);
-			return (NULL);
-		}
+			return (ft_strarrdel(&argv));
 		ptr = token;
 		ft_strcat(argv[i], ptr->word);
 		while (ptr->subtoken)
@@ -87,7 +63,6 @@ char	**create_argv(t_token *token)
 		}
 		i++;
 	}
-	argv[i] = NULL;
 	return (argv);
 }
 

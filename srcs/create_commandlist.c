@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 14:25:04 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/09 19:21:05 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/09 19:59:03 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,11 @@ t_list		*create_commandlist(t_token *tok)
 	int			i;
 
 	i = 0;
-	size = get_commandsize(tok->next);
-	if (!(argv = ft_memalloc(sizeof(char*) * (size + 1))))
+	size = get_commandsize(tok->next) + 1;
+	if (!(argv = ft_memalloc(sizeof(char*) * size)))
 		return (NULL);
 	if (!(commands = ft_lstnew(NULL, 0)))
 		return (NULL);
-	
 	while (tok->next)
 	{
 		tok = tok->next;
@@ -60,14 +59,13 @@ t_list		*create_commandlist(t_token *tok)
 			continue;
 		if (tok->type == TOKEN_OPERATOR)
 		{
-			argv[i] = 0;
 			i = 0;
-			ft_lstappend(&commands, ft_lstnew(argv, sizeof(char*) * (size + 1)));
+			ft_lstappend(&commands, ft_lstnew(argv, sizeof(char*) * size));
 			free(argv);
 			if (tok->next)
 			{
-				size = get_commandsize(tok->next);
-				if (!(argv = ft_memalloc(sizeof(char*) * (size + 1))))
+				size = get_commandsize(tok->next) + 1;
+				if (!(argv = ft_memalloc(sizeof(char*) * size)))
 					return (NULL);
 			}
 			else
@@ -76,11 +74,7 @@ t_list		*create_commandlist(t_token *tok)
 		else
 		{
 			if (!(argv[i] = ft_memalloc(sizeof(char) * get_tokenlen(tok) + 1)))
-			{
-				ft_strarrdel(&argv);
-				free(argv);
-				return (NULL);
-			}
+				return ((t_list*)ft_strarrdel(&argv));
 			sub = tok;
 			ft_strcat(argv[i], sub->word);
 			while (sub->subtoken)
@@ -91,8 +85,7 @@ t_list		*create_commandlist(t_token *tok)
 			i++;
 		}
 	}
-	argv[i] = 0;
-	ft_lstappend(&commands, ft_lstnew(argv, sizeof(char*) * (size + 1)));
+	ft_lstappend(&commands, ft_lstnew(argv, sizeof(char*) * size));
 	free(argv);
 	return (commands);
 }
