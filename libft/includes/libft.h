@@ -6,7 +6,7 @@
 /*   By: hhuhtane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 13:10:51 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/01/15 12:59:15 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/09 19:38:50 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char				*ft_uintmaxtoa_base(uintmax_t n, uintmax_t base);
 char				*ft_ltoa_base(long long n, int base);
 char				*ft_ltoa_base_prefix(long long n, int base, char *prefix);
 char				*ft_ftoa(long double f, size_t prec);
+char				**ft_strarrdel(char ***arr);
 
 char				**ft_strsplit(char const *s, char c);
 
@@ -88,7 +89,6 @@ void				ft_memdel(void **ap);
 void				ft_striter(char *s, void (*f)(char *));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 void				ft_strdel(char **as);
-void				ft_strarrdel(char ***arr);
 void				ft_strclr(char *s);
 void				ft_strtoupper(char *str);
 
