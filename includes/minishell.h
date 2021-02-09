@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/02 18:46:00 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/08 15:07:22 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ typedef struct s_lexer	t_lexer;
 
 struct 					s_lexer
 {
+	t_list				*commands;
 	int					argc;
 	char				**argv;
 	char				**envp;
@@ -163,10 +164,6 @@ struct 					s_lexer
 
 int					err_minishell(int errorno, char *name);
 
-void				test(void);
-
-int					run_execve(char *program, char **argv, char **envp);
-
 t_list				*copy_envp(char **envp);
 char				**make_envp(t_list *envl);
 char				*ft_getenv(const char *name, t_list *envl);
@@ -174,15 +171,13 @@ char				*get_env_var(char *var, t_list *envl);
 int					ft_setenv(const char *name, const char *val, int over, t_list *envl);
 int					ft_unsetenv(const char *name, t_list *envl);
 
-//int					lexer(char *input, int size, t_lexer *lexes);
-
 int					scanner2(char *input, int size, t_lexer *lexer);
-t_token				*new_token(size_t size);
 
 int					expansions(t_token *token, t_list *envl);
 char				*variable_exp(char *word, t_list *envl);
 
 char				**create_argv(t_token *token);
+t_list				*create_commandlist(t_token *tok);
 
 int					call_simple_fun(char **argv, char **envp, t_list *envl);
 
@@ -192,6 +187,18 @@ int					ft_builtin(char **argv, t_list *envl);
 int					search_command(char *file, char *epath, char *buf, size_t size);
 
 int					is_absolute_path(char *path);
+
+/*
+** SCANNER
+*/
+int					scanner2(char *input, int size, t_lexer *lexer);
+
+t_token				*new_token(size_t size);
+int					check_state(int state, char c, char *quote);
+t_token				*get_last_token(t_token *token);
+t_token				*get_last_subtoken(t_token *token);
+t_token				*init_scanner(t_lexer *lexer, char *quote, int size);
+
 
 /*
 ** BUILTIN FUNCTIONS
