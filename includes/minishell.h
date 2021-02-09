@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/09 19:19:53 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/10 00:55:56 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ int					scanner2(char *input, int size, t_lexer *lexer);
 int					expansions(t_token *token, t_list *envl);
 char				*variable_exp(char *word, t_list *envl);
 
-char				**create_argv(t_token *token);
+//char				**create_argv(t_token *token);
 t_list				*create_commandlist(t_token *tok);
 
 int					call_simple_fun(char **argv, t_list *envl);
