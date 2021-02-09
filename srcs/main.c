@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:14:00 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/08 11:34:19 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/09 15:18:08 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,28 @@ void		print_prompt(int mode)
 		ft_printf("> ");
 }
 
+
+static void		delete_lst(void *data, size_t i)
+{
+	char	**argv;
+//	t_list	*commands;
+
+//	commands = data;
+//	array = commands->content;
+//	ft_strarrdel(&array);
+//	if (commands->content_size)
+//		free(commands->content);
+	argv = data;
+	while (argv && *argv)
+	{
+		ft_strarrdel(&argv);
+		argv++;
+	}
+	ft_bzero(data, i);
+	free(data);
+}
+
+
 int			main(int argc, char **argv, char **envp)
 {
 	char		*buf;
@@ -82,11 +104,31 @@ int			main(int argc, char **argv, char **envp)
 		if (!ft_strcmp(buf, "") || lexer.tokens->next->type != TOKEN_WORD)
 			continue;
 		expansions(lexer.tokens, lexer.envl);
+
+		lexer.commands = create_commandlist(lexer.tokens);
+		t_list		*commands;
+		commands = lexer.commands;
+
+		while (commands->next)
+		{
+			commands = commands->next;
+			lexer.argv = commands->content;
+			if (ft_builtin(lexer.argv, lexer.envl) > 0)
+				call_simple_fun(lexer.argv, lexer.envp, lexer.envl);
+//			free(commands->content);
+//			ft_strarrdel(&lexer.argv);
+//			free(lexer.argv);
+		}
+		ft_lstdel(&lexer.commands, &delete_lst);
+//		ft_lstdel(&commands, &delete_lst);
+/*
 		lexer.argv = create_argv(lexer.tokens); // errorfun! t_list argvs?
 		if (ft_builtin(lexer.argv, lexer.envl) > 0)
 			call_simple_fun(lexer.argv, lexer.envp, lexer.envl);
 		ft_strarrdel(&lexer.argv);
 		free(lexer.argv);
+*/
+
 	}
 	exit(0);
 }
