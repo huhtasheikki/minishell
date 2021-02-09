@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 14:20:46 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/09 19:51:18 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/10 01:03:09 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,34 +36,6 @@ int		get_argv_size(t_token *token)
 		++size;
 	}
 	return (size);
-}
-
-char	**create_argv(t_token *token)
-{
-	t_token		*ptr;
-	char		**argv;
-	int			i;
-
-	if (!(argv = ft_memalloc(sizeof(char*) * get_argv_size(token))))
-		return (NULL);
-	i = 0;
-	while (token->next)
-	{
-		token = token->next;
-		if (get_token_len(token) == 0 || token->type != TOKEN_WORD)
-			continue;
-		if (!(argv[i] = ft_memalloc(sizeof(char) * get_token_len(token) + 1)))
-			return (ft_strarrdel(&argv));
-		ptr = token;
-		ft_strcat(argv[i], ptr->word);
-		while (ptr->subtoken)
-		{
-			ptr = ptr->subtoken;
-			ft_strcat(argv[i], ptr->word);
-		}
-		i++;
-	}
-	return (argv);
 }
 
 int		search_command(char *file, char *epath, char *buf, size_t size)
@@ -110,15 +82,27 @@ int		call_simple_fun(char **argv, t_list *envl)
 		return (err_minishell(ERR_FILE_NOT_FOUND, argv[0]));
 	if (access(fpath, X_OK) == -1)
 		return (err_minishell(ERR_NO_PERMISSION, argv[0]));
-	parent = fork();
-	if (parent == 0)
+	if ((parent = fork()) == 0)
 	{
 		if (!(envp = make_envp(envl)))
 			exit(err_minishell(ERR_MALLOC, NULL));
-		execve(fpath, argv, envp);
-		exit(1);
+		exit(execve(fpath, argv, envp));
 	}
 	else
 		wait(NULL);
+	return (0);
+}
+
+int		parse_commands(t_list *commands, t_lexer *lex)
+{
+	char		**argv;
+
+	while (commands->next)
+	{
+		commands = commands->next;
+		argv = commands->content;
+		if (ft_builtin(argv, lex->envl) > 0)
+			call_simple_fun(argv, lex->envl);
+	}
 	return (0);
 }

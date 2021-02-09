@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:21:09 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/04 13:04:02 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/10 00:06:34 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** - ENV with -i flag will print info that env has been cleared.
 */
 
-int		get_options(char *flags, t_list *envl)
+int		env_get_options(char *flags, t_list *envl)
 {
 	int		i;
 	int		options;
@@ -94,7 +94,7 @@ int		get_env_options(char **argv, t_list *envl, int *options, char *altpath)
 	while (argv[i] && argv[i][0] == '-')
 	{
 		o = 0;
-		if ((o = get_options(argv[i], envl)) == -1 || (o > 8 && o != 16))
+		if ((o = env_get_options(argv[i], envl)) == -1 || (o > 8 && o != 16))
 			return (err_minishell(ERR_INVALID_INPUT, "env"));
 		else if (o & ENV_P_FLAG)
 		{
