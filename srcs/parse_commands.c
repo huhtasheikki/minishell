@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 14:20:46 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/10 12:30:43 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:35:16 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void		delete_lst(void *data, size_t i)
 	free(data);
 }
 
-int		parse_commands(t_lexer *lex)
+int				parse_commands(t_lexer *lex)
 {
 	t_list		*commands;
 	t_list		*start;
