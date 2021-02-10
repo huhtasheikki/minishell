@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 20:48:34 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/06 10:01:21 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:21:01 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_token		*init_scanner(t_lexer *lexer, char *quote, int size)
 	}
 	else
 	{
-		token->next = new_token(size); //change this to just token;
+		token->next = new_token(size);
 		token = token->next;
 	}
 	*quote = lexer->quote;
