@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:21:09 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/10 00:06:34 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/10 11:57:59 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,15 +111,14 @@ int		get_env_options(char **argv, t_list *envl, int *options, char *altpath)
 int		builtin_env(int argc, char **argv, t_list *envl)
 {
 	char	altpath[1024];
-	pid_t	pid;
 	int		options;
 	int		i;
 
 	i = 0;
 	options = 0;
-	if ((pid = fork()) < 0)
+	if ((g_pid = fork()) < 0)
 		return (err_minishell(ERR_FORK_ERROR, argv[0]));
-	else if (pid == 0)
+	else if (g_pid == 0)
 	{
 		if ((i = get_env_options(argv, envl, &options, altpath)) < 0)
 			return (-1);
@@ -129,5 +128,6 @@ int		builtin_env(int argc, char **argv, t_list *envl)
 	}
 	else
 		wait(NULL);
+	g_pid = 0;
 	return (0);
 }

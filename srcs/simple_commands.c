@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 14:20:46 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/10 01:03:09 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/10 11:58:12 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int		call_simple_fun(char **argv, t_list *envl)
 	char		**envp;
 	char		fpath[1024];
 	char		*path_ptr;
-	pid_t		parent;
 	int			i;
 
 	i = 0;
@@ -82,7 +81,7 @@ int		call_simple_fun(char **argv, t_list *envl)
 		return (err_minishell(ERR_FILE_NOT_FOUND, argv[0]));
 	if (access(fpath, X_OK) == -1)
 		return (err_minishell(ERR_NO_PERMISSION, argv[0]));
-	if ((parent = fork()) == 0)
+	if ((g_pid = fork()) == 0)
 	{
 		if (!(envp = make_envp(envl)))
 			exit(err_minishell(ERR_MALLOC, NULL));
@@ -90,6 +89,7 @@ int		call_simple_fun(char **argv, t_list *envl)
 	}
 	else
 		wait(NULL);
+	g_pid = 0;
 	return (0);
 }
 

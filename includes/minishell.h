@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/10 00:55:56 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/10 11:58:24 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@
 //# define NAME_MAX
 //# define PATH_MAX
 
-
+pid_t					g_pid;
 
 enum					e_token_type
 {
@@ -210,5 +210,8 @@ int					ft_echo(int fd, char **argv);
 int					builtin_cd(int argc, char **argv, t_list *envl);
 int					builtin_env(int argc, char **argv, t_list *envl);
 int					builtin_setenv(int argc, char **argv, t_list *envl);
+
+void				sig_int(int signo);
+void				print_prompt(int mode);
 
 #endif
