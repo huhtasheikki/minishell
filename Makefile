@@ -6,7 +6,7 @@
 #    By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 16:18:57 by hhuhtane          #+#    #+#              #
-#    Updated: 2021/02/10 12:31:26 by hhuhtane         ###   ########.fr        #
+#    Updated: 2021/02/10 14:34:36 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ _SRC = main.c \
 		parse_commands.c
 
 _OBJ = $(_SRC:.c=.o)
-_INC = minishell.h
+_INC = minishell.h minishell_defs.h
 _LIBFT = libft.a
 
 SRC_DIR = srcs

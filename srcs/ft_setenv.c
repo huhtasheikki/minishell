@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:34:26 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/04 13:01:13 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/10 14:38:22 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	setenvs(const char *name, const char *val, t_list *envl, int len)
 	return (0);
 }
 
-int			ft_setenv(const char *name, const char *val, int over, t_list *envl)
+int			ft_setenv(char *name, char *val, int over, t_list *envl)
 {
 	char		*envs;
 	size_t		len;
