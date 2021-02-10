@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 14:20:46 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/10 11:58:12 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:32:35 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,5 @@ int		call_simple_fun(char **argv, t_list *envl)
 	else
 		wait(NULL);
 	g_pid = 0;
-	return (0);
-}
-
-int		parse_commands(t_list *commands, t_lexer *lex)
-{
-	char		**argv;
-
-	while (commands->next)
-	{
-		commands = commands->next;
-		argv = commands->content;
-		if (ft_builtin(argv, lex->envl) > 0)
-			call_simple_fun(argv, lex->envl);
-	}
 	return (0);
 }

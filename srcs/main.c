@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:14:00 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/10 11:22:25 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:33:03 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,25 +62,9 @@ void		print_prompt(int mode)
 		ft_printf("> ");
 }
 
-void		delete_lst(void *data, size_t i)
-{
-	char	**argv;
-
-	argv = data;
-	while (argv && *argv)
-	{
-		ft_bzero(*argv, ft_strlen(*argv));
-		free(*argv);
-		argv++;
-	}
-	ft_bzero(data, i);
-	free(data);
-}
-
 int			main(int argc, char **argv, char **envp)
 {
 	char		*buf;
-	t_list		*commands;
 	t_lexer		lex;
 
 	if (signal(SIGINT, sig_int) == SIG_ERR)
@@ -100,9 +84,7 @@ int			main(int argc, char **argv, char **envp)
 		if (!ft_strcmp(buf, "") || lex.tokens->next->type != TOKEN_WORD)
 			continue;
 		expansions(lex.tokens, lex.envl);
-		commands = create_commandlist(lex.tokens);
-		parse_commands(commands, &lex);
-		ft_lstdel(&commands, &delete_lst);
+		parse_commands(&lex);
 	}
 	exit(0);
 }

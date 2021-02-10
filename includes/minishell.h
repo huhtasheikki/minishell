@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/10 11:58:24 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:27:53 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ int					search_command(char *file, char *epath, char *buf, size_t size);
 
 int					is_absolute_path(char *path);
 
-int					parse_commands(t_list *commands, t_lexer *lex);
+int					parse_commands(t_lexer *lex);
 
 /*
 ** SCANNER

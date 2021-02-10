@@ -6,7 +6,7 @@
 #    By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 16:18:57 by hhuhtane          #+#    #+#              #
-#    Updated: 2021/02/10 11:24:23 by hhuhtane         ###   ########.fr        #
+#    Updated: 2021/02/10 12:31:26 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ _SRC = main.c \
 		ft_cd.c \
 		builtin_env.c \
 		create_commandlist.c \
-		signal.c
+		signal.c \
+		parse_commands.c
 
 _OBJ = $(_SRC:.c=.o)
 _INC = minishell.h
