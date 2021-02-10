@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 09:27:50 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/02 18:47:18 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:37:40 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ int		err_minishell(int errorno, char *name)
 		ft_printf("minishell: \n", name);
 	else if (errorno == ERR_FORK_ERROR)
 		ft_printf("minishell: fork error: %s\n", name);
+	else if (errorno == ERR_SIG)
+		ft_printf("minishell: signal error\n");
 	return (-1);
 }
