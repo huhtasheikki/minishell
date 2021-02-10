@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 20:48:34 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/08 14:18:17 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:15:45 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_token		*general_op(char *input, t_token *tok, int j, t_lexer *lex)
 	{
 		tok = get_last_token(lex->tokens);
 		if (!(tok->next = new_token(ft_strlen(input))))
-			return (NULL); // OR ERROR_FUN
+			return (NULL);
 		tok = tok->next;
 		j = 0;
 	}
@@ -67,7 +67,7 @@ t_token		*general_machine(char *input, t_token *tok, int j, t_lexer *lex)
 			return (tok);
 		tok = get_last_token(lex->tokens);
 		if (!(tok->next = new_token(ft_strlen(input))))
-			return (NULL); // OR ERROR_FUN
+			return (NULL);
 		return (tok->next);
 	}
 	if (ft_strchr(METACHARS, *input))
@@ -86,7 +86,7 @@ t_token		*quote_machine(char *input, t_token *tok, int i, t_lexer *lex)
 		{
 			tok = get_last_token(lex->tokens);
 			if (!(tok->next = new_token(ft_strlen(input) - i)))
-				return (NULL); // ERRORR FUN?
+				return (NULL);
 			return (tok->next);
 		}
 		tok->subtoken = new_token(ft_strlen(input) - i);
@@ -108,7 +108,7 @@ t_token		*op_machine(char *input, t_token *tok, int i, t_lexer *lex)
 	else
 	{
 		if (!(tok->next = new_token(ft_strlen(input) - i)))
-			return (NULL); // OR ERROR_FUN WITH MALLOCERROR
+			return (NULL);
 		return (general_machine(input, tok->next, i, lex));
 	}
 	return (tok);
