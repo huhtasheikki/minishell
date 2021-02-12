@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 14:20:46 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/11 18:38:10 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/12 10:58:56 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,14 @@ int		call_simple_fun(char **argv, t_list *envl)
 	char		fpath[1024];
 	char		*path_ptr;
 
-	ft_bzero(fpath, 1024);
 	if (is_absolute_path(argv[0]))
-		ft_strcat(fpath, argv[0]);
+		ft_strcpy(fpath, argv[0]);
 	else if ((path_ptr = ft_getenv("PATH", envl)))
+	{
 		search_command(argv[0], path_ptr, fpath, 1024);
+		if (access(fpath, F_OK) == -1)
+			return (err_minishell(ERR_NO_COMMAND, argv[0]));
+	}
 	if (access(fpath, F_OK) == -1)
 		return (err_minishell(ERR_FILE_NOT_FOUND, argv[0]));
 	if (access(fpath, X_OK) == -1)
@@ -87,6 +90,5 @@ int		call_simple_fun(char **argv, t_list *envl)
 	}
 	else
 		wait(NULL);
-	g_pid = 0;
-	return (0);
+	return ((g_pid = 0));
 }

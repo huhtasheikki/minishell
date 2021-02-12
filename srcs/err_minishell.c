@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 09:27:50 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/10 12:37:40 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/12 10:54:45 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ int		err_minishell(int errorno, char *name)
 		ft_printf("minishell: fork error: %s\n", name);
 	else if (errorno == ERR_SIG)
 		ft_printf("minishell: signal error\n");
+	else if (errorno == ERR_NO_COMMAND)
+		ft_printf("minishell: %s: Command not found\n", name);
 	return (-1);
 }
