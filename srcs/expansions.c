@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 20:16:40 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/11 18:37:27 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/12 19:43:50 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ int		tilde_plusminus(char *prefix, char *temp, t_list *envl)
 		return (0);
 	if (prefix[1] == '+' && (prefix[2] == '/' || prefix[2] == '\0'))
 	{
-		if ((ptr = get_env_var("PWD", envl)))
+		if ((ptr = ft_getenv("PWD", envl)))
 			ft_strncat(temp, ptr, 2049);
 		else
 			ft_strcat(temp, prefix);
 	}
 	if (prefix[1] == '-' && (prefix[2] == '/' || prefix[2] == '\0'))
 	{
-		if ((ptr = get_env_var("OLDPWD", envl)))
+		if ((ptr = ft_getenv("OLDPWD", envl)))
 			ft_strncat(temp, ptr, 2049);
 		else
 			ft_strcat(temp, prefix);
@@ -96,10 +96,10 @@ char	*tilde_exp(char *word, t_list *envl)
 	i = init_tilde(prefix, temp, word);
 	if (i == 1)
 	{
-		if (!(ptr = get_env_var("HOME", envl)))
+		if (!(ptr = ft_getenv("HOME", envl)))
 		{
 			ft_strcat(temp, "/Users/");
-			ptr = get_env_var("USER", envl);
+			ptr = ft_getenv("USER", envl);
 		}
 		if (ptr)
 			ft_strncat(temp, ptr, 2040);
