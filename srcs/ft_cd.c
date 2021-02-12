@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:38:57 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/11 18:38:36 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/12 15:43:20 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,18 @@ char	*get_absolute_path(char *rel, t_list *envl, char *path)
 int		err_cd(int errorno, char *path)
 {
 	if (errorno == ERR_TOO_MANY_SYMLINKS)
-		ft_printf("minishell: cd: Too many levels of symbolic links: %s\n",\
-				path);
+		ft_printf_fd(2, \
+			"minishell: cd: Too many levels of symbolic links: %s\n", path);
 	else if (errorno == ERR_STAT)
-		ft_printf("minishell: stat error: %s\n", path);
+		ft_printf_fd(2, "minishell: stat error: %s\n", path);
 	else if (errorno == ERR_NOT_A_DIR)
-		ft_printf("minishell: cd: not a directory: %s\n", path);
+		ft_printf_fd(2, "minishell: cd: not a directory: %s\n", path);
 	else if (errorno == ERR_FILE_NOT_FOUND)
-		ft_printf("minishell: cd: no such file or directory: %s\n", path);
+		ft_printf_fd(2, "minishell: cd: no such file or directory: %s\n", path);
 	else if (errorno == ERR_NO_PERMISSION)
-		ft_printf("minishell: cd: permission denied: %s\n", path);
+		ft_printf_fd(2, "minishell: cd: permission denied: %s\n", path);
 	else
-		ft_printf("minishell: cd: It just doesn't work today!\n");
+		ft_printf_fd(2, "minishell: cd: It just doesn't work today!\n");
 	return (-1);
 }
 
