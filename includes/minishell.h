@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/12 15:22:14 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/12 19:42:31 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int			err_minishell(int errorno, char *name);
 t_list		*copy_envp(char **envp);
 char		**make_envp(t_list *envl);
 char		*ft_getenv(const char *name, t_list *envl);
-char		*get_env_var(char *var, t_list *envl);
 int			ft_setenv(char *name, char *val, int over, t_list *envl);
 int			ft_unsetenv(const char *name, t_list *envl);
 
@@ -72,7 +71,5 @@ int			builtin_setenv(int argc, char **argv, t_list *envl);
 
 void		sig_int(int signo);
 void		print_prompt(int mode);
-
-void		ft_termcaps(t_lexer *lex); //testi
 
 #endif

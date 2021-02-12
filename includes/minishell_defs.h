@@ -6,23 +6,12 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/12 10:52:52 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/12 19:47:14 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_DEFS_H
 # define MINISHELL_DEFS_H
-
-/*
-# include <unistd.h>
-# include <sys/stat.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <signal.h>
-# include <stdlib.h>
-# include "ft_printf.h"
-# include "libft_shorthand.h"
-*/
 
 # define EXECVE_ERROR 2
 # define ERR_INVALID_INPUT 4
@@ -58,13 +47,6 @@
 # define ENV_U_FLAG 16
 
 pid_t			g_pid;
-
-/*
-extern char				pc; // ok?
-extern char				*up; // ok?
-extern char				*bc; //ok?
-extern short			ospeed; //ok?
-*/
 
 enum					e_token_type
 {
