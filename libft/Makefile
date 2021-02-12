@@ -6,7 +6,7 @@
 #    By: hhuhtane <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 11:39:33 by hhuhtane          #+#    #+#              #
-#    Updated: 2021/02/10 00:03:39 by hhuhtane         ###   ########.fr        #
+#    Updated: 2021/02/12 15:37:22 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -135,7 +135,8 @@ PRINTF_SRC = ft_printf.c \
 		ft_ptr.c \
 		ft_asterisk.c \
 		ft_padding.c \
-		ft_ftoa_bit.c
+		ft_ftoa_bit.c \
+		ft_printf_fd.c
 
 PRINTF_DIR = ft_printf/
 
