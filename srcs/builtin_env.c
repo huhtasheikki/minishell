@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:21:09 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/12 11:29:17 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/12 11:43:49 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,9 @@ int		builtin_env(int argc, char **argv, t_list *envl)
 	else if (g_pid == 0)
 	{
 		if ((i = get_env_options(argv, envl, &options, altpath)) < 0)
-			exit (-1);
+			exit(-1);
 		if ((i = get_setenvs(argc, argv, envl, i)) < 0)
-			exit (-1);
+			exit(-1);
 		exit(execute_env(argv + i, envl, altpath, options));
 	}
 	else
