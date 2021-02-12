@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 12:14:00 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/11 19:36:57 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/12 15:09:26 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,6 @@ int			main(int argc, char **argv, char **envp)
 	if (signal(SIGINT, sig_int) == SIG_ERR)
 		exit(err_minishell(ERR_SIG, NULL));
 	init_lexer(argc, argv, &lex, envp);
-
-	ft_termcaps(&lex);
-
 	buf = NULL;
 	while (1)
 	{
