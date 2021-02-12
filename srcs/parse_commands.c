@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 14:20:46 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/10 12:35:16 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/12 18:36:23 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int				parse_commands(t_lexer *lex)
 	{
 		commands = commands->next;
 		argv = commands->content;
+		if (!argv[0])
+			continue;
 		if (ft_builtin(argv, lex->envl) > 0)
 			call_simple_fun(argv, lex->envl);
 	}

@@ -6,7 +6,7 @@
 #    By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 16:18:57 by hhuhtane          #+#    #+#              #
-#    Updated: 2021/02/12 15:10:08 by hhuhtane         ###   ########.fr        #
+#    Updated: 2021/02/12 16:02:52 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,10 +59,11 @@ all: $(OBJ_DIR) $(NAME)
 $(NAME): $(OBJ)
 	@echo "MINISHELL:\t[$(COLOR_TITLE)Make started$(COLOR_RESET)]"
 	@make -C $(LIBFT_DIR)
-	$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(TERMCAP) $(LIBFT)
+	$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC)
 	@echo "MINISHELL:\t[$(COLOR_TITLE)$@ $(COLOR_OK) made$(COLOR_RESET)]"
+	echo $@ $<
 	@$(CC) $(FLAGS) -c -o $@ $<
 
 $(OBJ_DIR):
