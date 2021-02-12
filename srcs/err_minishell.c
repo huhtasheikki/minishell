@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 09:27:50 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/12 10:54:45 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/12 11:03:33 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int		err_minishell(int errorno, char *name)
 {
 	if (errorno == ERR_INVALID_INPUT)
-		ft_printf("minishell: %s: INVLAID INPUT\n", name);
+		ft_printf("minishell: %s: Invalid input.\n", name);
 	else if (errorno == ERR_MALLOC)
-		ft_printf("minishell: MALLOC ERROR!!\n");
+		ft_printf("minishell: Malloc error!!\n");
 	else if (errorno == ERR_HOME_NOT_SET)
 		ft_printf("minishell: %s: HOME not set\n", name);
 	else if (errorno == ERR_PATH_NOT_SET)

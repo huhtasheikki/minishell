@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:21:09 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/11 18:21:26 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/12 11:29:17 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,12 @@ int		get_env_options(char **argv, t_list *envl, int *options, char *altpath)
 			*options |= ENV_P_FLAG;
 		}
 		else if (o & ENV_U_FLAG)
-			ft_unsetenv(argv[++i], envl);
+		{
+			i++;
+			if (!argv[i] || !ft_isalpha(argv[i][0]))
+				return (err_minishell(ERR_INVALID_INPUT, "env"));
+			ft_unsetenv(argv[i], envl);
+		}
 		i++;
 	}
 	return (i);
@@ -118,9 +123,9 @@ int		builtin_env(int argc, char **argv, t_list *envl)
 	else if (g_pid == 0)
 	{
 		if ((i = get_env_options(argv, envl, &options, altpath)) < 0)
-			return (-1);
+			exit (-1);
 		if ((i = get_setenvs(argc, argv, envl, i)) < 0)
-			return (-1);
+			exit (-1);
 		exit(execute_env(argv + i, envl, altpath, options));
 	}
 	else
