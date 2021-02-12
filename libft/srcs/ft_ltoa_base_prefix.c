@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 17:57:06 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/08/10 12:41:48 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/12 10:35:47 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char			*ft_ltoa_base_prefix(long long n, int base, char *prefix)
 	if (!(str = ft_strnew(n_len + 1)))
 		return (NULL);
 	str[n_len--] = '\0';
-	while (n >= base | n <= -base)
+	while (n >= base || n <= -base)
 	{
 		temp = ft_abs(n % base);
 		if (temp < 10)

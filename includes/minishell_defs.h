@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/10 23:03:45 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/12 10:52:52 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define ERR_TOO_MANY_SYMLINKS 16384
 # define ERR_PATH_NOT_SET 32768
 # define ERR_SIG 65536
+# define ERR_NO_COMMAND 131072
 
 # define MAXPATHLEN 256
 # define FNAME_MAX 256

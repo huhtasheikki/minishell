@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 17:57:06 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/08/07 18:24:00 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/12 10:35:05 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char		*ft_ltoa_base(long long n, int base)
 	str[n_len--] = '\0';
 	if (n < 0)
 		str[0] = '-';
-	while (n >= base | n <= -base)
+	while (n >= base || n <= -base)
 	{
 		temp = ft_abs(n % base);
 		if (temp < 10)
