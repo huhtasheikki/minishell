@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:38:57 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/02 17:53:23 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/11 18:38:36 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ int		is_absolute_path(char *path)
 char	*get_absolute_path(char *rel, t_list *envl, char *path)
 {
 	char	*cdpath;
-	int		i;
 
-	i = 0;
 	if (is_absolute_path(rel))
 		return (ft_strcpy(path, rel));
 	if ((cdpath = ft_getenv("CDPATH", envl)))

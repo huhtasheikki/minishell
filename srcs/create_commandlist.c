@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 14:25:04 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/10 01:00:05 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/11 18:39:01 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,7 @@ t_list		*create_commandlist(t_token *tok)
 	t_list		*commands;
 	char		**argv;
 	size_t		size;
-	int			i;
 
-	i = 0;
 	size = get_commandsize(tok->next) + 1;
 	if (!(argv = ft_memalloc(sizeof(char*) * size)))
 		return (NULL);

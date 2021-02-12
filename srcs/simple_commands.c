@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 14:20:46 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/10 12:32:35 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/11 18:38:10 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,7 @@ int		call_simple_fun(char **argv, t_list *envl)
 	char		**envp;
 	char		fpath[1024];
 	char		*path_ptr;
-	int			i;
 
-	i = 0;
 	ft_bzero(fpath, 1024);
 	if (is_absolute_path(argv[0]))
 		ft_strcat(fpath, argv[0]);

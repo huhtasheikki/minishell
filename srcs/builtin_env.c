@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:21:09 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/10 11:57:59 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/11 18:21:26 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ int		env_get_options(char *flags, t_list *envl)
 	while (flags[i])
 	{
 		if (flags[i] == 'i')
-		{
-			ft_printf("#ft_env clearing environ\n");
 			ft_lstdel(&envl->next, &ft_lstfree);
-		}
 		else if (flags[i] == 'P')
 			options |= ENV_P_FLAG;
 		else if (flags[i] == 'u')

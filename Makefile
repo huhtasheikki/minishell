@@ -6,7 +6,7 @@
 #    By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 16:18:57 by hhuhtane          #+#    #+#              #
-#    Updated: 2021/02/10 14:34:36 by hhuhtane         ###   ########.fr        #
+#    Updated: 2021/02/11 11:23:29 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ _SRC = main.c \
 		builtin_env.c \
 		create_commandlist.c \
 		signal.c \
-		parse_commands.c
+		parse_commands.c \
+		termcaps.c
 
 _OBJ = $(_SRC:.c=.o)
 _INC = minishell.h minishell_defs.h
@@ -48,6 +49,7 @@ LIBFT = $(patsubst %,$(LIBFT_DIR)/%,$(_LIBFT))
 INC_LIBFT = -I libft/includes
 
 FLAGS = -Wall -Wextra -Werror -I $(INC_DIR) $(INC_LIBFT)
+TERMCAP = -ltermcap
 
 COLOR_RESET = \033[0m
 COLOR_WAIT = \033[0;31m
@@ -59,7 +61,7 @@ all: $(OBJ_DIR) $(NAME)
 $(NAME): $(OBJ)
 	@echo "MINISHELL:\t[$(COLOR_TITLE)Make started$(COLOR_RESET)]"
 	@make -C $(LIBFT_DIR)
-	$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT)
+	$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(TERMCAP) $(LIBFT)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC)
 	@echo "MINISHELL:\t[$(COLOR_TITLE)$@ $(COLOR_OK) made$(COLOR_RESET)]"

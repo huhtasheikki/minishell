@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 14:39:46 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/05 18:02:23 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/12 10:24:55 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int		get_var_name(char *prefix, char *word)
 	char	quote;
 
 	i = 0;
-	j = 0;
-	ft_bzero(prefix, 2049);
+	j = 1;
+	ft_bzero(prefix, 2048);
 	if (word[j] == '{')
 	{
 		quote = '}';
@@ -28,10 +28,7 @@ int		get_var_name(char *prefix, char *word)
 	}
 	while (word[j] && word[j] != '"' && word[j] != quote && word[j] != '$' && \
 			word[j] != ' ')
-	{
-		prefix[i++] = word[j];
-		j++;
-	}
+		prefix[i++] = word[j++];
 	prefix[i] = '\0';
 	if (word[j] == quote)
 		j++;
@@ -44,8 +41,8 @@ int		variable_to_string(char *word, char *temp, int *temp_i, t_list *envl)
 	char	*ptr;
 	int		i;
 
-	i = get_var_name(prefix, word + 1);
-	if ((ptr = get_env_var(prefix, envl)))
+	i = get_var_name(prefix, word);
+	if ((ptr = ft_getenv(prefix, envl)))
 	{
 		ft_strcat(temp, ptr);
 		*temp_i += i;
@@ -55,11 +52,11 @@ int		variable_to_string(char *word, char *temp, int *temp_i, t_list *envl)
 
 char	*variable_exp(char *word, t_list *envl)
 {
-	char	temp[2049];
+	char	temp[2048];
 	int		i;
 	int		j;
 
-	ft_bzero(temp, 2049);
+	ft_bzero(temp, 2048);
 	i = 0;
 	j = 0;
 	if (word[0] == '\'' || !ft_strchr(word, '$'))

@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:59:32 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/10 14:37:51 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/11 00:06:26 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 # include <sys/types.h>
 # include <signal.h>
 # include <stdlib.h>
+
+# include <curses.h> // ok? tgetent etc
+# include <term.h> // ok?
+
 # include "ft_printf.h"
 # include "libft_shorthand.h"
 # include "minishell_defs.h"
@@ -72,5 +76,7 @@ int			builtin_setenv(int argc, char **argv, t_list *envl);
 
 void		sig_int(int signo);
 void		print_prompt(int mode);
+
+void		ft_termcaps(t_lexer *lex); //testi
 
 #endif

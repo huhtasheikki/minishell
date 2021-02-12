@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 20:16:40 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/05 17:23:40 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/11 18:37:27 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,7 @@ int		expansions(t_token *token, t_list *envl)
 {
 	t_token		*sub;
 	char		*word;
-	size_t		i;
 
-	i = 0;
 	while (token->next)
 	{
 		token = token->next;

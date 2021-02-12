@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 20:48:34 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/10 12:15:45 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/11 18:33:53 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,9 @@ int			scanner2(char *input, int size, t_lexer *lexer)
 	t_token		*tok;
 	char		quote;
 	int			i;
-	int			j;
 
 	tok = init_scanner(lexer, &quote, size);
 	i = 0;
-	j = ft_strlen(tok->word);
 	if (size == 0)
 		return (0);
 	while (i < size)
