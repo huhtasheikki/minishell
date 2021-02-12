@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/09 12:10:03 by hhuhtane          #+#    #+#             */
-/*   Updated: 2021/02/12 10:38:19 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2021/02/12 15:30:10 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void		convert_percent(void *param)
 {
-	t_all	*all;
-
-	all = (t_all*)param;
+	return ((void)param);
 }
 
 void		get_percent(t_all *all)
